@@ -46,7 +46,7 @@ Brief interpretation of the figure.
 
 ## Poster
 
-[Project poster (PDF)](projects/financial_mathematics/leverage-effect/poster.pdf)
+[Project poster (PDF)](/financial_mathematics/leverage-effect/poster.pdf)
 
 ## Code
 
