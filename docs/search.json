@@ -1,91 +1,91 @@
 [
   {
-    "objectID": "website/projects/leverage_effect.html",
-    "href": "website/projects/leverage_effect.html",
+    "objectID": "projects/leverage_effect.html",
+    "href": "projects/leverage_effect.html",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "This project investigates the leverage effect in equity markets through a comparison of the Warsaw Stock Exchange and the New York Stock Exchange.\n\n\n\nThe analysis is inspired by an academic article on volatility asymmetry and leverage effects in financial markets.\n\nReference article: add full citation here\nProject goal: state whether you replicate, adapt, or extend the original analysis\n\n\n\n\n\nPolish market data: add source\nU.S. market data: add source\nFrequency: daily\nSample period: add dates\n\n\n\n\nreturn calculation\nalignment of time series\nhandling of missing observations\n\n\n\n\n\n\ndescriptive analysis of returns and volatility\nmodel specification for asymmetry\ncomparative interpretation across markets\n\n\n\n\nAdd your plots and short interpretations here.\n\n\n\nBrief interpretation of the figure.\n\n\n\n\nProject poster (PDF)\n\n\n\nView project folder on GitHub\n\n\n\nReturn to homepage"
   },
   {
-    "objectID": "website/projects/leverage_effect.html#overview",
-    "href": "website/projects/leverage_effect.html#overview",
+    "objectID": "projects/leverage_effect.html#overview",
+    "href": "projects/leverage_effect.html#overview",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "This project investigates the leverage effect in equity markets through a comparison of the Warsaw Stock Exchange and the New York Stock Exchange."
   },
   {
-    "objectID": "website/projects/leverage_effect.html#motivation-and-source",
-    "href": "website/projects/leverage_effect.html#motivation-and-source",
+    "objectID": "projects/leverage_effect.html#motivation-and-source",
+    "href": "projects/leverage_effect.html#motivation-and-source",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "The analysis is inspired by an academic article on volatility asymmetry and leverage effects in financial markets.\n\nReference article: add full citation here\nProject goal: state whether you replicate, adapt, or extend the original analysis"
   },
   {
-    "objectID": "website/projects/leverage_effect.html#data",
-    "href": "website/projects/leverage_effect.html#data",
+    "objectID": "projects/leverage_effect.html#data",
+    "href": "projects/leverage_effect.html#data",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "Polish market data: add source\nU.S. market data: add source\nFrequency: daily\nSample period: add dates\n\n\n\n\nreturn calculation\nalignment of time series\nhandling of missing observations"
   },
   {
-    "objectID": "website/projects/leverage_effect.html#methodology",
-    "href": "website/projects/leverage_effect.html#methodology",
+    "objectID": "projects/leverage_effect.html#methodology",
+    "href": "projects/leverage_effect.html#methodology",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "descriptive analysis of returns and volatility\nmodel specification for asymmetry\ncomparative interpretation across markets"
   },
   {
-    "objectID": "website/projects/leverage_effect.html#results",
-    "href": "website/projects/leverage_effect.html#results",
+    "objectID": "projects/leverage_effect.html#results",
+    "href": "projects/leverage_effect.html#results",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "Add your plots and short interpretations here.\n\n\n\nBrief interpretation of the figure."
   },
   {
-    "objectID": "website/projects/leverage_effect.html#poster",
-    "href": "website/projects/leverage_effect.html#poster",
+    "objectID": "projects/leverage_effect.html#poster",
+    "href": "projects/leverage_effect.html#poster",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "Project poster (PDF)"
   },
   {
-    "objectID": "website/projects/leverage_effect.html#code",
-    "href": "website/projects/leverage_effect.html#code",
+    "objectID": "projects/leverage_effect.html#code",
+    "href": "projects/leverage_effect.html#code",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "View project folder on GitHub"
   },
   {
-    "objectID": "website/projects/leverage_effect.html#back",
-    "href": "website/projects/leverage_effect.html#back",
+    "objectID": "projects/leverage_effect.html#back",
+    "href": "projects/leverage_effect.html#back",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
     "text": "Return to homepage"
   },
   {
-    "objectID": "website/index.html",
-    "href": "website/index.html",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Actuarial Projects Portfolio",
     "section": "",
     "text": "I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based investigations, including simulation, statistical analysis, and financial modelling.\n\n\n\n\nComparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.\n\n\n\n\n\nactuarial and quantitative finance projects\nstatistical modelling and data analysis\ncomputational methods, including simulation\nreproducible code and project summaries\n\n\n\n\nYou can browse the full codebase on GitHub alongside the project pages presented here."
   },
   {
-    "objectID": "website/index.html#selected-projects",
-    "href": "website/index.html#selected-projects",
+    "objectID": "index.html#selected-projects",
+    "href": "index.html#selected-projects",
     "title": "Actuarial Projects Portfolio",
     "section": "",
     "text": "Comparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data."
   },
   {
-    "objectID": "website/index.html#what-this-portfolio-contains",
-    "href": "website/index.html#what-this-portfolio-contains",
+    "objectID": "index.html#what-this-portfolio-contains",
+    "href": "index.html#what-this-portfolio-contains",
     "title": "Actuarial Projects Portfolio",
     "section": "",
     "text": "actuarial and quantitative finance projects\nstatistical modelling and data analysis\ncomputational methods, including simulation\nreproducible code and project summaries"
   },
   {
-    "objectID": "website/index.html#repository",
-    "href": "website/index.html#repository",
+    "objectID": "index.html#repository",
+    "href": "index.html#repository",
     "title": "Actuarial Projects Portfolio",
     "section": "",
     "text": "You can browse the full codebase on GitHub alongside the project pages presented here."
