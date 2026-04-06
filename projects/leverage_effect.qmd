@@ -28,47 +28,63 @@ The analysis is inspired by an academic article on quantitative analysis of the 
 ### Preprocessing
 
 - select the close prices and merge data for all stocks in each index
-- manage missing observations dates-wise and company-wise
+- manage missing observations date-wise and company-wise, eliminate entries with too many missing values
 - calculate log returns
-- normalize returns 
+- normalize the returns 
 
 ## Methodology
 
 Define:
 
-- $r_{\alpha}(t)$: return of stock $\alpha$ at time $t$,  $r^2_{\alpha}(t)$: volatility of stock $\alpha$ at time $t$ 
-- $I(t) = \frac{1}{N} \sum_{\alpha=1}^N r_{\alpha}(t)$: average return at time $t$ (,,synthetic index return''), $I^2(t)$: proxy for index volatility at time $t$
-- $\sigma^2(t) = \frac{1}{N} \sum_{\alpha=1}^N r^2_{\alpha}(t)$ average stock volatility at time $t$
-- $\rho(t) = \frac{1}{N(N-1)} \sum_{\alpha \neq \beta} r_{\alpha}(t) r_{\beta}(t)$: average correlation of stock returns at time $t$
+- $r_{\alpha}(t)$ : return of stock $\alpha$ at time $t$
+- $r^2_{\alpha}(t)$ : volatility of stock $\alpha$ at time $t$ 
+- $I(t) = \frac{1}{N} \sum_{\alpha} r_{\alpha}(t)$ : average return at time $t$ (,,synthetic index return'')
+- $I^2(t)$: proxy for index volatility at time $t$
+- $\sigma^2(t) = \frac{1}{N} \sum_{\alpha} r^2_{\alpha}(t)$ : average stock volatility at time $t$
+- $\rho(t) = \frac{1}{N(N-1)} \sum_{\alpha \neq \beta} r_{\alpha}(t) r_{\beta}(t)$ : average correlation of stock returns at time $t$
 
 The authors propose two facts about the index volatility:
 
-- $I^2(t)$  depends on past returns: $I^2(t) = I^2_0 +  a(\tau) \cdot I(t-\tau)$, where $\tau$ is the time lag
-- market fluctuations are driven by both the volatility of individual stocks and their correlations:
+- general market fluctuations are driven by both volatility of individual stocks and by their correlations:
 $$I^2(t) \approx \rho(t) \sigma^2(t)$$
 
-To quantify these observations, the authors propose to regress $I^2(t)$, $\sigma^2(t)$, and $\rho(t)$ on past returns $I(t-\tau)$, for different lags $\tau$. The regression linear coefficients are $a(\tau)$, $b(\tau)$, and $c(\tau)$, respectively. 
+- the collective measures, $I^2(t)$, $\sigma^2(t)$ and $\rho(t)$, depend on past returns via a linear relationship: 
+    
+    $$I^2(t) = I^2_0 +  a(\tau) \cdot I(t-\tau)$$
+    $$\sigma^2(t) = \sigma^2_0 +  b(\tau) \cdot I(t-\tau)$$
+    $$\rho(t) = \rho_0 +  c(\tau) \cdot I(t-\tau)$$
+
+- the total influence of $I(t-\tau)$ on $I^2(t)$ is the sum of influences on $\sigma^2(t)$ and $\rho(t)$, which can be expressed as:
+
+$$a(\tau) \approx b(\tau) \cdot \rho_0 + c(\tau) \cdot \sigma^2_0$$
+
+To quantify these observations, the authors propose find the coefficients by standard linear regression for different time lags $\tau$.
 
 ## Results
 
+The plots below show $a(\tau)$, $b(\tau) \cdot \rho_0$, and $c(\tau)\cdot \sigma^2_0$ values for time lags from 1 to 150 days. The influences from the left plot constitute the total influence in the right plot, as the authors suggest. 
 
-In both markets we observe the leverage effect, because the correlation between past returns and current volatility is negative. 
-KEy differences
+![](financial_mathematics/leverage_effect/plots_sp500.png){fig-align="center" width=700}
 
-### Example figure
+![](financial_mathematics/leverage_effect/plots_wig30.png){fig-align="center" width=700}
 
-![](plots_sp500.png){fig-align="center" width=600}
+In both markets, we clearly observe the leverage effect: if index returns decline, volatility measures and correlations between stocks increase, via the negative linear coefficients. We also observe that this effect decays over time, and after a period of several weeks it becomes random noise. 
 
-Brief interpretation of the figure.
+We note 2 key differences between Polish and American markets:
 
-## Poster
+1. The force of the negative correlation is stronger in the U.S. market than in the Polish market. This is most likely due to the fact that WSE is a smaller and less liquid market than NYSE, and therefore the collective behavior of stocks is less predictable and heavily influenced by idiosyncratic factors.
+2. For similar reasons, the decay of the leverage effect is faster in the Polish market than in the American market. In the WSE, the effect becomes negligible after about 20 trading days, while in the NYSE it remains significant for up to 40 trading days. This suggests that shocks to the market have a more persistent impact on volatility and correlations in the U.S. market than in the Polish market.
 
-Below is the project poster presented at the 2025 conference 8th Warsaw School of Statistical Physics. Its context extend the analysis presented on this page. 
-[Project poster (PDF)](projects/financial_mathematics/leverage_effect/poster.pdf)
+This analysis shows, in a quantitative way, the unpredictability of Polish stock market compared to the American one. This is an important insight for investors and risk managers, as it implies that patterns observed in the model U.S market may not be directly applicable to smaller and more specific markets. 
+
+## Conference poster
+
+Below is the project poster presented at the 8th Warsaw School of Statistical Physics in 2025. It contains an extended analysis, including principal regression analysis. 
+[Project poster (PDF)](financial_mathematics/leverage_effect/poster.pdf)
 
 ## Code
 
-[View the code on GitHub](https://github.com/ma-latala/actuarial-projects/tree/main/projects/financial_mathematics/leverage_effect)
+[View the code on GitHub](https://github.com/ma-latala/actuarial_projects/tree/main/projects/financial_mathematics/leverage_effect)
 
 ## Back
 

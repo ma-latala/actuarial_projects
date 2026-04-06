@@ -32,28 +32,28 @@
     "href": "projects/leverage_effect.html#data",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "Data",
-    "text": "Data\n\nStock price data: Yahoo Finance (via Python library yfinance)\nFrequency: daily\nNumber of companies: 30 (for WIG30) and 500 (for S&P 500)\nSample period: April 2016 to April 2026 (update of the original period used for 2025 conference)\n\n\nPreprocessing\n\nselect the close prices and merge data for all stocks in each index\nmanage missing observations dates-wise and company-wise\ncalculate log returns\nnormalize returns"
+    "text": "Data\n\nStock price data: Yahoo Finance (via Python library yfinance)\nFrequency: daily\nNumber of companies: 30 (for WIG30) and 500 (for S&P 500)\nSample period: April 2016 to April 2026 (update of the original period used for 2025 conference)\n\n\nPreprocessing\n\nselect the close prices and merge data for all stocks in each index\nmanage missing observations date-wise and company-wise, eliminate entries with too many missing values\ncalculate log returns\nnormalize the returns"
   },
   {
     "objectID": "projects/leverage_effect.html#methodology",
     "href": "projects/leverage_effect.html#methodology",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "Methodology",
-    "text": "Methodology\nDefine:\n\n\\(r_{\\alpha}(t)\\): return of stock \\(\\alpha\\) at time \\(t\\), \\(r^2_{\\alpha}(t)\\): volatility of stock \\(\\alpha\\) at time \\(t\\)\n\\(I(t) = \\frac{1}{N} \\sum_{\\alpha=1}^N r_{\\alpha}(t)\\): average return at time \\(t\\) (,,synthetic index return’’), \\(I^2(t)\\): proxy for index volatility at time \\(t\\)\n\\(\\sigma^2(t) = \\frac{1}{N} \\sum_{\\alpha=1}^N r^2_{\\alpha}(t)\\) average stock volatility at time \\(t\\)\n\\(\\rho(t) = \\frac{1}{N(N-1)} \\sum_{\\alpha \\neq \\beta} r_{\\alpha}(t) r_{\\beta}(t)\\): average correlation of stock returns at time \\(t\\)\n\nThe authors propose two facts about the index volatility:\n\n\\(I^2(t)\\) depends on past returns: \\(I^2(t) = I^2_0 +  a(\\tau) \\cdot I(t-\\tau)\\), where \\(\\tau\\) is the time lag\nmarket fluctuations are driven by both the volatility of individual stocks and their correlations: \\[I^2(t) \\approx \\rho(t) \\sigma^2(t)\\]\n\nTo quantify these observations, the authors propose to regress \\(I^2(t)\\), \\(\\sigma^2(t)\\), and \\(\\rho(t)\\) on past returns \\(I(t-\\tau)\\), for different lags \\(\\tau\\). The regression linear coefficients are \\(a(\\tau)\\), \\(b(\\tau)\\), and \\(c(\\tau)\\), respectively."
+    "text": "Methodology\nDefine:\n\n\\(r_{\\alpha}(t)\\) : return of stock \\(\\alpha\\) at time \\(t\\)\n\\(r^2_{\\alpha}(t)\\) : volatility of stock \\(\\alpha\\) at time \\(t\\)\n\\(I(t) = \\frac{1}{N} \\sum_{\\alpha} r_{\\alpha}(t)\\) : average return at time \\(t\\) (,,synthetic index return’’)\n\\(I^2(t)\\): proxy for index volatility at time \\(t\\)\n\\(\\sigma^2(t) = \\frac{1}{N} \\sum_{\\alpha} r^2_{\\alpha}(t)\\) : average stock volatility at time \\(t\\)\n\\(\\rho(t) = \\frac{1}{N(N-1)} \\sum_{\\alpha \\neq \\beta} r_{\\alpha}(t) r_{\\beta}(t)\\) : average correlation of stock returns at time \\(t\\)\n\nThe authors propose two facts about the index volatility:\n\ngeneral market fluctuations are driven by both volatility of individual stocks and by their correlations: \\[I^2(t) \\approx \\rho(t) \\sigma^2(t)\\]\nthe collective measures, \\(I^2(t)\\), \\(\\sigma^2(t)\\) and \\(\\rho(t)\\), depend on past returns via a linear relationship:\n\\[I^2(t) = I^2_0 +  a(\\tau) \\cdot I(t-\\tau)\\] \\[\\sigma^2(t) = \\sigma^2_0 +  b(\\tau) \\cdot I(t-\\tau)\\] \\[\\rho(t) = \\rho_0 +  c(\\tau) \\cdot I(t-\\tau)\\]\nthe total influence of \\(I(t-\\tau)\\) on \\(I^2(t)\\) is the sum of influences on \\(\\sigma^2(t)\\) and \\(\\rho(t)\\), which can be expressed as:\n\n\\[a(\\tau) \\approx b(\\tau) \\cdot \\rho_0 + c(\\tau) \\cdot \\sigma^2_0\\]\nTo quantify these observations, the authors propose find the coefficients by standard linear regression for different time lags \\(\\tau\\)."
   },
   {
     "objectID": "projects/leverage_effect.html#results",
     "href": "projects/leverage_effect.html#results",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "Results",
-    "text": "Results\nIn both markets we observe the leverage effect, because the correlation between past returns and current volatility is negative. KEy differences\n\nExample figure\n\n\n\n\n\nBrief interpretation of the figure."
+    "text": "Results\nThe plots below show \\(a(\\tau)\\), \\(b(\\tau) \\cdot \\rho_0\\), and \\(c(\\tau)\\cdot \\sigma^2_0\\) values for time lags from 1 to 150 days. The influences from the left plot constitute the total influence in the right plot, as the authors suggest.\n\n\n\n\n\n\n\n\n\n\nIn both markets, we clearly observe the leverage effect: if index returns decline, volatility measures and correlations between stocks increase, via the negative linear coefficients. We also observe that this effect decays over time, and after a period of several weeks it becomes random noise.\nWe note 2 key differences between Polish and American markets:\n\nThe force of the negative correlation is stronger in the U.S. market than in the Polish market. This is most likely due to the fact that WSE is a smaller and less liquid market than NYSE, and therefore the collective behavior of stocks is less predictable and heavily influenced by idiosyncratic factors.\nFor similar reasons, the decay of the leverage effect is faster in the Polish market than in the American market. In the WSE, the effect becomes negligible after about 20 trading days, while in the NYSE it remains significant for up to 40 trading days. This suggests that shocks to the market have a more persistent impact on volatility and correlations in the U.S. market than in the Polish market.\n\nThis analysis shows, in a quantitative way, the unpredictability of Polish stock market compared to the American one. This is an important insight for investors and risk managers, as it implies that patterns observed in the model U.S market may not be directly applicable to smaller and more specific markets."
   },
   {
-    "objectID": "projects/leverage_effect.html#poster",
-    "href": "projects/leverage_effect.html#poster",
+    "objectID": "projects/leverage_effect.html#conference-poster",
+    "href": "projects/leverage_effect.html#conference-poster",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "Poster",
-    "text": "Poster\nBelow is the project poster presented at the 2025 conference 8th Warsaw School of Statistical Physics. Its context extend the analysis presented on this page. Project poster (PDF)"
+    "section": "Conference poster",
+    "text": "Conference poster\nBelow is the project poster presented at the 8th Warsaw School of Statistical Physics in 2025. It contains an extended analysis, including principal regression analysis. Project poster (PDF)"
   },
   {
     "objectID": "projects/leverage_effect.html#code",

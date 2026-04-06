@@ -153,11 +153,8 @@ window.Quarto = {
   <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">Preprocessing</a></li>
   </ul></li>
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
-  <ul class="collapse">
-  <li><a href="#example-figure" id="toc-example-figure" class="nav-link" data-scroll-target="#example-figure">Example figure</a></li>
-  </ul></li>
-  <li><a href="#poster" id="toc-poster" class="nav-link" data-scroll-target="#poster">Poster</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#conference-poster" id="toc-conference-poster" class="nav-link" data-scroll-target="#conference-poster">Conference poster</a></li>
   <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
   <li><a href="#back" id="toc-back" class="nav-link" data-scroll-target="#back">Back</a></li>
   </ul>
@@ -216,9 +213,9 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="preprocessing">Preprocessing</h3>
 <ul>
 <li>select the close prices and merge data for all stocks in each index</li>
-<li>manage missing observations dates-wise and company-wise</li>
+<li>manage missing observations date-wise and company-wise, eliminate entries with too many missing values</li>
 <li>calculate log returns</li>
-<li>normalize returns</li>
+<li>normalize the returns</li>
 </ul>
 </section>
 </section>
@@ -226,38 +223,51 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
 <p>Define:</p>
 <ul>
-<li><span class="math inline">\(r_{\alpha}(t)\)</span>: return of stock <span class="math inline">\(\alpha\)</span> at time <span class="math inline">\(t\)</span>, <span class="math inline">\(r^2_{\alpha}(t)\)</span>: volatility of stock <span class="math inline">\(\alpha\)</span> at time <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(I(t) = \frac{1}{N} \sum_{\alpha=1}^N r_{\alpha}(t)\)</span>: average return at time <span class="math inline">\(t\)</span> (,,synthetic index return’’), <span class="math inline">\(I^2(t)\)</span>: proxy for index volatility at time <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(\sigma^2(t) = \frac{1}{N} \sum_{\alpha=1}^N r^2_{\alpha}(t)\)</span> average stock volatility at time <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(\rho(t) = \frac{1}{N(N-1)} \sum_{\alpha \neq \beta} r_{\alpha}(t) r_{\beta}(t)\)</span>: average correlation of stock returns at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(r_{\alpha}(t)\)</span> : return of stock <span class="math inline">\(\alpha\)</span> at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(r^2_{\alpha}(t)\)</span> : volatility of stock <span class="math inline">\(\alpha\)</span> at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(I(t) = \frac{1}{N} \sum_{\alpha} r_{\alpha}(t)\)</span> : average return at time <span class="math inline">\(t\)</span> (,,synthetic index return’’)</li>
+<li><span class="math inline">\(I^2(t)\)</span>: proxy for index volatility at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(\sigma^2(t) = \frac{1}{N} \sum_{\alpha} r^2_{\alpha}(t)\)</span> : average stock volatility at time <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(\rho(t) = \frac{1}{N(N-1)} \sum_{\alpha \neq \beta} r_{\alpha}(t) r_{\beta}(t)\)</span> : average correlation of stock returns at time <span class="math inline">\(t\)</span></li>
 </ul>
 <p>The authors propose two facts about the index volatility:</p>
 <ul>
-<li><span class="math inline">\(I^2(t)\)</span> depends on past returns: <span class="math inline">\(I^2(t) = I^2_0 +  a(\tau) \cdot I(t-\tau)\)</span>, where <span class="math inline">\(\tau\)</span> is the time lag</li>
-<li>market fluctuations are driven by both the volatility of individual stocks and their correlations: <span class="math display">\[I^2(t) \approx \rho(t) \sigma^2(t)\]</span></li>
+<li><p>general market fluctuations are driven by both volatility of individual stocks and by their correlations: <span class="math display">\[I^2(t) \approx \rho(t) \sigma^2(t)\]</span></p></li>
+<li><p>the collective measures, <span class="math inline">\(I^2(t)\)</span>, <span class="math inline">\(\sigma^2(t)\)</span> and <span class="math inline">\(\rho(t)\)</span>, depend on past returns via a linear relationship:</p>
+<p><span class="math display">\[I^2(t) = I^2_0 +  a(\tau) \cdot I(t-\tau)\]</span> <span class="math display">\[\sigma^2(t) = \sigma^2_0 +  b(\tau) \cdot I(t-\tau)\]</span> <span class="math display">\[\rho(t) = \rho_0 +  c(\tau) \cdot I(t-\tau)\]</span></p></li>
+<li><p>the total influence of <span class="math inline">\(I(t-\tau)\)</span> on <span class="math inline">\(I^2(t)\)</span> is the sum of influences on <span class="math inline">\(\sigma^2(t)\)</span> and <span class="math inline">\(\rho(t)\)</span>, which can be expressed as:</p></li>
 </ul>
-<p>To quantify these observations, the authors propose to regress <span class="math inline">\(I^2(t)\)</span>, <span class="math inline">\(\sigma^2(t)\)</span>, and <span class="math inline">\(\rho(t)\)</span> on past returns <span class="math inline">\(I(t-\tau)\)</span>, for different lags <span class="math inline">\(\tau\)</span>. The regression linear coefficients are <span class="math inline">\(a(\tau)\)</span>, <span class="math inline">\(b(\tau)\)</span>, and <span class="math inline">\(c(\tau)\)</span>, respectively.</p>
+<p><span class="math display">\[a(\tau) \approx b(\tau) \cdot \rho_0 + c(\tau) \cdot \sigma^2_0\]</span></p>
+<p>To quantify these observations, the authors propose find the coefficients by standard linear regression for different time lags <span class="math inline">\(\tau\)</span>.</p>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>In both markets we observe the leverage effect, because the correlation between past returns and current volatility is negative. KEy differences</p>
-<section id="example-figure" class="level3">
-<h3 class="anchored" data-anchor-id="example-figure">Example figure</h3>
+<p>The plots below show <span class="math inline">\(a(\tau)\)</span>, <span class="math inline">\(b(\tau) \cdot \rho_0\)</span>, and <span class="math inline">\(c(\tau)\cdot \sigma^2_0\)</span> values for time lags from 1 to 150 days. The influences from the left plot constitute the total influence in the right plot, as the authors suggest.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="plots_sp500.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+<p><img src="financial_mathematics/leverage_effect/plots_sp500.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700"></p>
 </figure>
 </div>
-<p>Brief interpretation of the figure.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="financial_mathematics/leverage_effect/plots_wig30.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700"></p>
+</figure>
+</div>
+<p>In both markets, we clearly observe the leverage effect: if index returns decline, volatility measures and correlations between stocks increase, via the negative linear coefficients. We also observe that this effect decays over time, and after a period of several weeks it becomes random noise.</p>
+<p>We note 2 key differences between Polish and American markets:</p>
+<ol type="1">
+<li>The force of the negative correlation is stronger in the U.S. market than in the Polish market. This is most likely due to the fact that WSE is a smaller and less liquid market than NYSE, and therefore the collective behavior of stocks is less predictable and heavily influenced by idiosyncratic factors.</li>
+<li>For similar reasons, the decay of the leverage effect is faster in the Polish market than in the American market. In the WSE, the effect becomes negligible after about 20 trading days, while in the NYSE it remains significant for up to 40 trading days. This suggests that shocks to the market have a more persistent impact on volatility and correlations in the U.S. market than in the Polish market.</li>
+</ol>
+<p>This analysis shows, in a quantitative way, the unpredictability of Polish stock market compared to the American one. This is an important insight for investors and risk managers, as it implies that patterns observed in the model U.S market may not be directly applicable to smaller and more specific markets.</p>
 </section>
-</section>
-<section id="poster" class="level2">
-<h2 class="anchored" data-anchor-id="poster">Poster</h2>
-<p>Below is the project poster presented at the 2025 conference 8th Warsaw School of Statistical Physics. Its context extend the analysis presented on this page. <a href="projects/financial_mathematics/leverage_effect/poster.pdf">Project poster (PDF)</a></p>
+<section id="conference-poster" class="level2">
+<h2 class="anchored" data-anchor-id="conference-poster">Conference poster</h2>
+<p>Below is the project poster presented at the 8th Warsaw School of Statistical Physics in 2025. It contains an extended analysis, including principal regression analysis. <a href="financial_mathematics/leverage_effect/poster.pdf">Project poster (PDF)</a></p>
 </section>
 <section id="code" class="level2">
 <h2 class="anchored" data-anchor-id="code">Code</h2>
-<p><a href="https://github.com/ma-latala/actuarial-projects/tree/main/projects/financial_mathematics/leverage_effect">View the code on GitHub</a></p>
+<p><a href="https://github.com/ma-latala/actuarial_projects/tree/main/projects/financial_mathematics/leverage_effect">View the code on GitHub</a></p>
 </section>
 <section id="back" class="level2">
 <h2 class="anchored" data-anchor-id="back">Back</h2>
