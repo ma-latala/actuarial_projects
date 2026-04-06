@@ -57,7 +57,7 @@ KEy differences
 
 ### Example figure
 
-![](plots_sp500.png)
+![](plots_sp500.png){fig-align="center" width=600}
 
 Brief interpretation of the figure.
 

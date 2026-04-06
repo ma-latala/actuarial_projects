@@ -23,4 +23,4 @@ Comparative analysis of volatility asymmetry in the Polish and U.S. equity marke
 You can browse the full codebase on GitHub alongside the project pages presented here.
 
 ## 
-I build this personal website using Quarto and host it on GitHub Pages.
+I build this personal website using Quarto and hosting on GitHub Pages.
