@@ -1,0 +1,27 @@
+body {
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.65;
+  font-size: 1.05rem;
+}
+
+.navbar-brand {
+  font-weight: 600;
+}
+
+h1, h2, h3 {
+  margin-top: 1.5rem;
+}
+
+img {
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.quarto-title-block .title {
+  font-weight: 700;
+}
+
+p, li {
+  text-align: justify;
+}

@@ -1,0 +1,19 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Actuarial Projects Portfolio"
+  navbar:
+    left:
+      - href: website/index.qmd
+        text: Home
+      - href: website/projects/leverage_effect.qmd
+        text: Leverage Effect
+  search: true
+
+format:
+  html:
+    theme: cosmo
+    css: website/styles.css
+    toc: true

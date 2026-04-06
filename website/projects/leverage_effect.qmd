@@ -1,0 +1,57 @@
+---
+title: "Leverage Effect: WSE vs NYSE"
+---
+
+# Leverage Effect: WSE vs NYSE
+
+## Overview
+
+This project investigates the leverage effect in equity markets through a comparison of the Warsaw Stock Exchange and the New York Stock Exchange.
+
+## Motivation and source
+
+The analysis is inspired by an academic article on volatility asymmetry and leverage effects in financial markets.
+
+- **Reference article:** add full citation here
+- **Project goal:** state whether you replicate, adapt, or extend the original analysis
+
+## Data
+
+- **Polish market data:** add source
+- **U.S. market data:** add source
+- **Frequency:** daily
+- **Sample period:** add dates
+
+### Preprocessing
+
+- return calculation
+- alignment of time series
+- handling of missing observations
+
+## Methodology
+
+- descriptive analysis of returns and volatility
+- model specification for asymmetry
+- comparative interpretation across markets
+
+## Results
+
+Add your plots and short interpretations here.
+
+### Example figure
+
+![](projects/leverage-effect/plots/plot1.png)
+
+Brief interpretation of the figure.
+
+## Poster
+
+[Project poster (PDF)](projects/leverage-effect/poster.pdf)
+
+## Code
+
+[View project folder on GitHub](https://github.com/YOUR-USERNAME/YOUR-REPO/tree/main/projects/leverage-effect)
+
+## Back
+
+[Return to homepage](index.html)

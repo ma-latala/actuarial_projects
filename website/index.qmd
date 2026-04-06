@@ -1,0 +1,23 @@
+---
+title: "Actuarial Projects Portfolio"
+---
+
+# Actuarial Projects Portfolio
+
+I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based investigations, including simulation, statistical analysis, and financial modelling.
+
+## Selected Projects
+
+### [Leverage Effect: WSE vs NYSE](leverage-effect.html)
+Comparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.
+
+## What this portfolio contains
+
+- actuarial and quantitative finance projects
+- statistical modelling and data analysis
+- computational methods, including simulation
+- reproducible code and project summaries
+
+## Repository
+
+You can browse the full codebase on GitHub alongside the project pages presented here.
