@@ -1,4 +1,4 @@
-# Leverage Effect: Polish Stock Exchange vs NYSE
+# Leverage Effect: Warsaw Stock Exchange vs NYSE
 
 ## 1. Overview
 This project investigates the leverage effect in equity markets, with a comparative analysis between the Polish Stock Exchange (WSE) and the New York Stock Exchange (NYSE). The objective is to examine asymmetries in volatility response to negative returns and assess whether the effect differs across developed and emerging markets.
