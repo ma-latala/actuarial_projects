@@ -39,7 +39,7 @@
     "href": "projects/leverage_effect.html#methodology",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "Methodology",
-    "text": "Methodology\nDefine:\n\n\\(r_{\\alpha}(t)\\) : return of stock \\(\\alpha\\) at time \\(t\\)\n\\(r^2_{\\alpha}(t)\\) : volatility of stock \\(\\alpha\\) at time \\(t\\)\n\\(I(t) = \\frac{1}{N} \\sum_{\\alpha} r_{\\alpha}(t)\\) : average return at time \\(t\\) (,,synthetic index return’’)\n\\(I^2(t)\\): proxy for index volatility at time \\(t\\)\n\\(\\sigma^2(t) = \\frac{1}{N} \\sum_{\\alpha} r^2_{\\alpha}(t)\\) : average stock volatility at time \\(t\\)\n\\(\\rho(t) = \\frac{1}{N(N-1)} \\sum_{\\alpha \\neq \\beta} r_{\\alpha}(t) r_{\\beta}(t)\\) : average correlation of stock returns at time \\(t\\)\n\nThe authors propose two facts about the index volatility:\n\ngeneral market fluctuations are driven by both volatility of individual stocks and by their correlations: \\[I^2(t) \\approx \\rho(t) \\sigma^2(t)\\]\nthe collective measures, \\(I^2(t)\\), \\(\\sigma^2(t)\\) and \\(\\rho(t)\\), depend on past returns via a linear relationship:\n\\[I^2(t) = I^2_0 +  a(\\tau) \\cdot I(t-\\tau)\\] \\[\\sigma^2(t) = \\sigma^2_0 +  b(\\tau) \\cdot I(t-\\tau)\\] \\[\\rho(t) = \\rho_0 +  c(\\tau) \\cdot I(t-\\tau)\\]\nthe total influence of \\(I(t-\\tau)\\) on \\(I^2(t)\\) is the sum of influences on \\(\\sigma^2(t)\\) and \\(\\rho(t)\\), which can be expressed as:\n\n\\[a(\\tau) \\approx b(\\tau) \\cdot \\rho_0 + c(\\tau) \\cdot \\sigma^2_0\\]\nTo quantify these observations, the authors propose find the coefficients by standard linear regression for different time lags \\(\\tau\\)."
+    "text": "Methodology\nDefine:\n\n\\(r_{\\alpha}(t)\\) : return of stock \\(\\alpha\\) at time \\(t\\)\n\\(r^2_{\\alpha}(t)\\) : volatility of stock \\(\\alpha\\) at time \\(t\\)\n\\(I(t) = \\frac{1}{N} \\sum_{\\alpha} r_{\\alpha}(t)\\) : average return at time \\(t\\) (,,synthetic index return’’)\n\\(I^2(t)\\): proxy for index volatility at time \\(t\\)\n\\(\\sigma^2(t) = \\frac{1}{N} \\sum_{\\alpha} r^2_{\\alpha}(t)\\) : average stock volatility at time \\(t\\)\n\\(\\rho(t) = \\frac{1}{N(N-1)} \\sum_{\\alpha \\neq \\beta} r_{\\alpha}(t) r_{\\beta}(t)\\) : average correlation of stock returns at time \\(t\\)\n\nThe authors state three facts about the index volatility:\n\ngeneral market fluctuations are driven by both volatility of individual stocks and by their correlations: \\[I^2(t) \\approx \\rho(t) \\sigma^2(t)\\]\nthe collective measures, \\(I^2(t)\\), \\(\\sigma^2(t)\\) and \\(\\rho(t)\\), depend on past returns via a linear relationship:\n\\[I^2(t) = I^2_0 +  a(\\tau) \\cdot I(t-\\tau)\\] \\[\\sigma^2(t) = \\sigma^2_0 +  b(\\tau) \\cdot I(t-\\tau)\\] \\[\\rho(t) = \\rho_0 +  c(\\tau) \\cdot I(t-\\tau)\\]\nthe total influence of \\(I(t-\\tau)\\) on \\(I^2(t)\\) is the sum of influences on \\(\\sigma^2(t)\\) and \\(\\rho(t)\\), which can be expressed as:\n\n\\[a(\\tau) \\approx b(\\tau) \\cdot \\rho_0 + c(\\tau) \\cdot \\sigma^2_0\\]\nTo quantify these observations, the authors propose find the coefficients by standard linear regression for different time lags \\(\\tau\\)."
   },
   {
     "objectID": "projects/leverage_effect.html#results",
@@ -74,7 +74,7 @@
     "href": "index.html",
     "title": "Actuarial Projects Portfolio",
     "section": "",
-    "text": "I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based investigations, including simulation, statistical analysis, and financial modelling.\n\n\n\n\nComparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.\n\n\n\n\n\nactuarial and quantitative finance projects\nstatistical modelling and data analysis\ncomputational methods, including simulation\nreproducible code and project summaries\n\n\n\n\nYou can browse the full codebase on GitHub alongside the project pages presented here.\n\n\n\nI build this personal website using Quarto and hosting on GitHub Pages."
+    "text": "I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based analyses, including simulation, statistical methods, and financial modelling.\n\n\n\n\nComparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.\n\n\n\n\n\n\n\nTo build this personal website I used Quarto and hosting on GitHub Pages."
   },
   {
     "objectID": "index.html#selected-projects",
@@ -84,24 +84,10 @@
     "text": "Comparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data."
   },
   {
-    "objectID": "index.html#what-this-portfolio-contains",
-    "href": "index.html#what-this-portfolio-contains",
-    "title": "Actuarial Projects Portfolio",
-    "section": "",
-    "text": "actuarial and quantitative finance projects\nstatistical modelling and data analysis\ncomputational methods, including simulation\nreproducible code and project summaries"
-  },
-  {
-    "objectID": "index.html#repository",
-    "href": "index.html#repository",
-    "title": "Actuarial Projects Portfolio",
-    "section": "",
-    "text": "You can browse the full codebase on GitHub alongside the project pages presented here."
-  },
-  {
     "objectID": "index.html#section",
     "href": "index.html#section",
     "title": "Actuarial Projects Portfolio",
     "section": "",
-    "text": "I build this personal website using Quarto and hosting on GitHub Pages."
+    "text": "To build this personal website I used Quarto and hosting on GitHub Pages."
   }
 ]

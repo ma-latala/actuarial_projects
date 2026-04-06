@@ -2,9 +2,7 @@
 title: "Actuarial Projects Portfolio"
 ---
 
-# Actuarial Projects Portfolio
-
-I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based investigations, including simulation, statistical analysis, and financial modelling.
+I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based analyses, including simulation, statistical methods, and financial modelling.
 
 ## Selected Projects
 
@@ -13,14 +11,7 @@ Comparative analysis of volatility asymmetry in the Polish and U.S. equity marke
 
 ## What this portfolio contains
 
-- actuarial and quantitative finance projects
-- statistical modelling and data analysis
-- computational methods, including simulation
-- reproducible code and project summaries
 
-## Repository
-
-You can browse the full codebase on GitHub alongside the project pages presented here.
 
 ## 
-I build this personal website using Quarto and hosting on GitHub Pages.
+To build this personal website I used Quarto and hosting on GitHub Pages.

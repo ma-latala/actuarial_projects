@@ -11,8 +11,11 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: projects/leverage_effect.qmd
-        text: Leverage Effect
+      - href: projects/financial_mathematics.qmd
+        text: Financial Mathematics
+    right:
+      - text: "LinkedIn"
+        href: https://www.linkedin.com/in/ma-latala
   search: true
 
 format:

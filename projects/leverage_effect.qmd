@@ -1,5 +1,7 @@
 ---
 title: "Leverage Effect: WSE vs NYSE"
+html:
+    page-layout: full
 ---
 
 ## Overview
@@ -43,7 +45,7 @@ Define:
 - $\sigma^2(t) = \frac{1}{N} \sum_{\alpha} r^2_{\alpha}(t)$ : average stock volatility at time $t$
 - $\rho(t) = \frac{1}{N(N-1)} \sum_{\alpha \neq \beta} r_{\alpha}(t) r_{\beta}(t)$ : average correlation of stock returns at time $t$
 
-The authors propose two facts about the index volatility:
+The authors state three facts about the index volatility:
 
 - general market fluctuations are driven by both volatility of individual stocks and by their correlations:
 $$I^2(t) \approx \rho(t) \sigma^2(t)$$
