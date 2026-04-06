@@ -5,6 +5,10 @@ body {
   font-size: 1.05rem;
 }
 
+.quarto-container {
+  max-width: 1400px;
+}
+
 .navbar-brand {
   font-weight: 600;
 }
