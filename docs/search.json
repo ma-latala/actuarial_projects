@@ -74,7 +74,7 @@
     "href": "index.html",
     "title": "Actuarial Projects Portfolio",
     "section": "",
-    "text": "I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based investigations, including simulation, statistical analysis, and financial modelling.\n\n\n\n\nComparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.\n\n\n\n\n\nactuarial and quantitative finance projects\nstatistical modelling and data analysis\ncomputational methods, including simulation\nreproducible code and project summaries\n\n\n\n\nYou can browse the full codebase on GitHub alongside the project pages presented here."
+    "text": "I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based investigations, including simulation, statistical analysis, and financial modelling.\n\n\n\n\nComparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.\n\n\n\n\n\nactuarial and quantitative finance projects\nstatistical modelling and data analysis\ncomputational methods, including simulation\nreproducible code and project summaries\n\n\n\n\nYou can browse the full codebase on GitHub alongside the project pages presented here.\n\n\n\nI build this personal website using Quarto and host it on GitHub Pages."
   },
   {
     "objectID": "index.html#selected-projects",
@@ -96,5 +96,12 @@
     "title": "Actuarial Projects Portfolio",
     "section": "",
     "text": "You can browse the full codebase on GitHub alongside the project pages presented here."
+  },
+  {
+    "objectID": "index.html#section",
+    "href": "index.html#section",
+    "title": "Actuarial Projects Portfolio",
+    "section": "",
+    "text": "I build this personal website using Quarto and host it on GitHub Pages."
   }
 ]

@@ -57,7 +57,7 @@ KEy differences
 
 ### Example figure
 
-![](financial_mathematics/leverage-effect/plots_sp500.png)
+![](plots_sp500.png)
 
 Brief interpretation of the figure.
 
