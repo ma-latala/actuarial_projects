@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - index.qmd
+    - projects/leverage_effect.qmd
 
 website:
   title: "Actuarial Projects Portfolio"

@@ -42,3 +42,9 @@
 
 /.quarto/
 **/*.quarto_ipynb
+
+/projects/financial_mathematics/leverage_effect/data/*
+
+venv
+
+/projects/financial_mathematics/leverage_effect/__pycache__/

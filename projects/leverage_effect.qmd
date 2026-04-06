@@ -2,55 +2,73 @@
 title: "Leverage Effect: WSE vs NYSE"
 ---
 
-# Leverage Effect: WSE vs NYSE
-
 ## Overview
 
-This project investigates the leverage effect in equity markets through a comparison of the Warsaw Stock Exchange and the New York Stock Exchange.
+This project investigates the correlation between returns and volatility in equity markets. It compares the **leverage effect (the increase in volatility that follows a negative return period)** on the Warsaw Stock Exchange (WSE) and the New York Stock Exchange (NYSE). The analysis is based on daily data for a sample period of 10 years, from 2016 to 2026.
 
 ## Motivation and source
 
-The analysis is inspired by an academic article on volatility asymmetry and leverage effects in financial markets.
+The analysis is inspired by an academic article on quantitative analysis of the leverage effects in financial markets.
 
-- **Reference article:** add full citation here
-- **Project goal:** state whether you replicate, adapt, or extend the original analysis
+- **Reference article:** Reigneron, P.-A., Allez, R., & Bouchaud, J.-P. (2011). *Principal regression analysis and the index leverage effect*.
+- **Project goal:** replicate the original analysis for S&P 500 index components, adapt the methodology to Polish WIG30 index components, compare the nature of stock price correlations between the two markets.
+
+## Tools
+
+- Python (libraries: pandas, numpy, matplotlib, seaborn, yfinance)
+- Jupyter Notebook for data analysis and visualization
 
 ## Data
 
-- **Polish market data:** add source
-- **U.S. market data:** add source
+- **Stock price data:**  Yahoo Finance (via Python library yfinance)
 - **Frequency:** daily
-- **Sample period:** add dates
+- **Number of companies:** 30 (for WIG30) and 500 (for S&P 500)
+- **Sample period:** April 2016 to April 2026 (update of the original period used for 2025 conference)
 
 ### Preprocessing
 
-- return calculation
-- alignment of time series
-- handling of missing observations
+- select the close prices and merge data for all stocks in each index
+- manage missing observations dates-wise and company-wise
+- calculate log returns
+- normalize returns 
 
 ## Methodology
 
-- descriptive analysis of returns and volatility
-- model specification for asymmetry
-- comparative interpretation across markets
+Define:
+
+- $r_{\alpha}(t)$: return of stock $\alpha$ at time $t$,  $r^2_{\alpha}(t)$: volatility of stock $\alpha$ at time $t$ 
+- $I(t) = \frac{1}{N} \sum_{\alpha=1}^N r_{\alpha}(t)$: average return at time $t$ (,,synthetic index return''), $I^2(t)$: proxy for index volatility at time $t$
+- $\sigma^2(t) = \frac{1}{N} \sum_{\alpha=1}^N r^2_{\alpha}(t)$ average stock volatility at time $t$
+- $\rho(t) = \frac{1}{N(N-1)} \sum_{\alpha \neq \beta} r_{\alpha}(t) r_{\beta}(t)$: average correlation of stock returns at time $t$
+
+The authors propose two facts about the index volatility:
+
+- $I^2(t)$  depends on past returns: $I^2(t) = I^2_0 +  a(\tau) \cdot I(t-\tau)$, where $\tau$ is the time lag
+- market fluctuations are driven by both the volatility of individual stocks and their correlations:
+$$I^2(t) \approx \rho(t) \sigma^2(t)$$
+
+To quantify these observations, the authors propose to regress $I^2(t)$, $\sigma^2(t)$, and $\rho(t)$ on past returns $I(t-\tau)$, for different lags $\tau$. The regression linear coefficients are $a(\tau)$, $b(\tau)$, and $c(\tau)$, respectively. 
 
 ## Results
 
-Add your plots and short interpretations here.
+
+In both markets we observe the leverage effect, because the correlation between past returns and current volatility is negative. 
+KEy differences
 
 ### Example figure
 
-![](projects/leverage-effect/plots/plot1.png)
+![](financial_mathematics/leverage-effect/plots_sp500.png)
 
 Brief interpretation of the figure.
 
 ## Poster
 
-[Project poster (PDF)](projects/financial_mathematics/leverage-effect/poster.pdf)
+Below is the project poster presented at the 2025 conference 8th Warsaw School of Statistical Physics. Its context extend the analysis presented on this page. 
+[Project poster (PDF)](projects/financial_mathematics/leverage_effect/poster.pdf)
 
 ## Code
 
-[View project folder on GitHub](https://github.com/YOUR-USERNAME/YOUR-REPO/tree/main/projects/leverage-effect)
+[View the code on GitHub](https://github.com/ma-latala/actuarial-projects/tree/main/projects/financial_mathematics/leverage_effect)
 
 ## Back
 

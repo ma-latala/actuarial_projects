@@ -4,63 +4,70 @@
     "href": "projects/leverage_effect.html",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
-    "text": "This project investigates the leverage effect in equity markets through a comparison of the Warsaw Stock Exchange and the New York Stock Exchange.\n\n\n\nThe analysis is inspired by an academic article on volatility asymmetry and leverage effects in financial markets.\n\nReference article: add full citation here\nProject goal: state whether you replicate, adapt, or extend the original analysis\n\n\n\n\n\nPolish market data: add source\nU.S. market data: add source\nFrequency: daily\nSample period: add dates\n\n\n\n\nreturn calculation\nalignment of time series\nhandling of missing observations\n\n\n\n\n\n\ndescriptive analysis of returns and volatility\nmodel specification for asymmetry\ncomparative interpretation across markets\n\n\n\n\nAdd your plots and short interpretations here.\n\n\n\nBrief interpretation of the figure.\n\n\n\n\nProject poster (PDF)\n\n\n\nView project folder on GitHub\n\n\n\nReturn to homepage"
+    "text": "This project investigates the correlation between returns and volatility in equity markets. It compares the leverage effect (the increase in volatility that follows a negative return period) on the Warsaw Stock Exchange (WSE) and the New York Stock Exchange (NYSE). The analysis is based on daily data for a sample period of 10 years, from 2016 to 2026."
   },
   {
     "objectID": "projects/leverage_effect.html#overview",
     "href": "projects/leverage_effect.html#overview",
     "title": "Leverage Effect: WSE vs NYSE",
     "section": "",
-    "text": "This project investigates the leverage effect in equity markets through a comparison of the Warsaw Stock Exchange and the New York Stock Exchange."
+    "text": "This project investigates the correlation between returns and volatility in equity markets. It compares the leverage effect (the increase in volatility that follows a negative return period) on the Warsaw Stock Exchange (WSE) and the New York Stock Exchange (NYSE). The analysis is based on daily data for a sample period of 10 years, from 2016 to 2026."
   },
   {
     "objectID": "projects/leverage_effect.html#motivation-and-source",
     "href": "projects/leverage_effect.html#motivation-and-source",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "",
-    "text": "The analysis is inspired by an academic article on volatility asymmetry and leverage effects in financial markets.\n\nReference article: add full citation here\nProject goal: state whether you replicate, adapt, or extend the original analysis"
+    "section": "Motivation and source",
+    "text": "Motivation and source\nThe analysis is inspired by an academic article on quantitative analysis of the leverage effects in financial markets.\n\nReference article: Reigneron, P.-A., Allez, R., & Bouchaud, J.-P. (2011). Principal regression analysis and the index leverage effect.\nProject goal: replicate the original analysis for S&P 500 index components, adapt the methodology to Polish WIG30 index components, compare the nature of stock price correlations between the two markets."
+  },
+  {
+    "objectID": "projects/leverage_effect.html#tools",
+    "href": "projects/leverage_effect.html#tools",
+    "title": "Leverage Effect: WSE vs NYSE",
+    "section": "Tools",
+    "text": "Tools\n\nPython (libraries: pandas, numpy, matplotlib, seaborn, yfinance)\nJupyter Notebook for data analysis and visualization"
   },
   {
     "objectID": "projects/leverage_effect.html#data",
     "href": "projects/leverage_effect.html#data",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "",
-    "text": "Polish market data: add source\nU.S. market data: add source\nFrequency: daily\nSample period: add dates\n\n\n\n\nreturn calculation\nalignment of time series\nhandling of missing observations"
+    "section": "Data",
+    "text": "Data\n\nStock price data: Yahoo Finance (via Python library yfinance)\nFrequency: daily\nNumber of companies: 30 (for WIG30) and 500 (for S&P 500)\nSample period: April 2016 to April 2026 (update of the original period used for 2025 conference)\n\n\nPreprocessing\n\nselect the close prices and merge data for all stocks in each index\nmanage missing observations dates-wise and company-wise\ncalculate log returns\nnormalize returns"
   },
   {
     "objectID": "projects/leverage_effect.html#methodology",
     "href": "projects/leverage_effect.html#methodology",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "",
-    "text": "descriptive analysis of returns and volatility\nmodel specification for asymmetry\ncomparative interpretation across markets"
+    "section": "Methodology",
+    "text": "Methodology\nDefine:\n\n\\(r_{\\alpha}(t)\\): return of stock \\(\\alpha\\) at time \\(t\\), \\(r^2_{\\alpha}(t)\\): volatility of stock \\(\\alpha\\) at time \\(t\\)\n\\(I(t) = \\frac{1}{N} \\sum_{\\alpha=1}^N r_{\\alpha}(t)\\): average return at time \\(t\\) (,,synthetic index return’’), \\(I^2(t)\\): proxy for index volatility at time \\(t\\)\n\\(\\sigma^2(t) = \\frac{1}{N} \\sum_{\\alpha=1}^N r^2_{\\alpha}(t)\\) average stock volatility at time \\(t\\)\n\\(\\rho(t) = \\frac{1}{N(N-1)} \\sum_{\\alpha \\neq \\beta} r_{\\alpha}(t) r_{\\beta}(t)\\): average correlation of stock returns at time \\(t\\)\n\nThe authors propose two facts about the index volatility:\n\n\\(I^2(t)\\) depends on past returns: \\(I^2(t) = I^2_0 +  a(\\tau) \\cdot I(t-\\tau)\\), where \\(\\tau\\) is the time lag\nmarket fluctuations are driven by both the volatility of individual stocks and their correlations: \\[I^2(t) \\approx \\rho(t) \\sigma^2(t)\\]\n\nTo quantify these observations, the authors propose to regress \\(I^2(t)\\), \\(\\sigma^2(t)\\), and \\(\\rho(t)\\) on past returns \\(I(t-\\tau)\\), for different lags \\(\\tau\\). The regression linear coefficients are \\(a(\\tau)\\), \\(b(\\tau)\\), and \\(c(\\tau)\\), respectively."
   },
   {
     "objectID": "projects/leverage_effect.html#results",
     "href": "projects/leverage_effect.html#results",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "",
-    "text": "Add your plots and short interpretations here.\n\n\n\nBrief interpretation of the figure."
+    "section": "Results",
+    "text": "Results\nIn both markets we observe the leverage effect, because the correlation between past returns and current volatility is negative. KEy differences\n\nExample figure\n\nBrief interpretation of the figure."
   },
   {
     "objectID": "projects/leverage_effect.html#poster",
     "href": "projects/leverage_effect.html#poster",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "",
-    "text": "Project poster (PDF)"
+    "section": "Poster",
+    "text": "Poster\nBelow is the project poster presented at the 2025 conference 8th Warsaw School of Statistical Physics. Its context extend the analysis presented on this page. Project poster (PDF)"
   },
   {
     "objectID": "projects/leverage_effect.html#code",
     "href": "projects/leverage_effect.html#code",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "",
-    "text": "View project folder on GitHub"
+    "section": "Code",
+    "text": "Code\nView the code on GitHub"
   },
   {
     "objectID": "projects/leverage_effect.html#back",
     "href": "projects/leverage_effect.html#back",
     "title": "Leverage Effect: WSE vs NYSE",
-    "section": "",
-    "text": "Return to homepage"
+    "section": "Back",
+    "text": "Back\nReturn to homepage"
   },
   {
     "objectID": "index.html",
