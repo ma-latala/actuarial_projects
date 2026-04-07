@@ -4,6 +4,8 @@ project:
   render:
     - index.qmd
     - projects/leverage_effect.qmd
+    - projects/financial_mathematics.qmd
+    - projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.qmd
 
 website:
   title: "Actuarial Projects Portfolio"

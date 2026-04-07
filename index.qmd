@@ -7,11 +7,11 @@ I am building a portfolio of projects related to actuarial science, quantitative
 ## Selected Projects
 
 ### [Leverage Effect: WSE vs NYSE](leverage-effect.html)
-Comparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.
+
 
 ## What this portfolio contains
 
 
 
 ## 
-To build this personal website I used Quarto and hosting on GitHub Pages.
+To build this personal website I used Quarto and GitHub Pages.

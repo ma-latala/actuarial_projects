@@ -1,5 +1,61 @@
 [
   {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "",
+    "text": "It is a very common practice in quantitative finance to assume that stock returns are normally distributed. However, empirical return distributions typically exhibit heavier tails and other qualities distinct from Gaussian distributions. I decided to investigate this issue by performing statistical analysis of daily log-returns for a time series of stock returns for 10 large U.S. companies. I compared fitting a normal distribution and fitting a two-component Gaussian mixture model to the data, with probability density defined as:\n\\[f(x) = p \\cdot \\mathcal{N}(0, \\sigma^2) + (1-p) \\cdot \\mathcal{N}(0, \\beta^2)\\] .\nI chose this model because of its interesting interpretation: it is a two-state market model, where the market is in a “normal” state with volatility \\(\\sigma\\) with probability \\(p\\), and in a “volatile” state with volatility \\(\\beta\\) with probability \\(1-\\p\\)."
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#motivation",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#motivation",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "",
+    "text": "It is a very common practice in quantitative finance to assume that stock returns are normally distributed. However, empirical return distributions typically exhibit heavier tails and other qualities distinct from Gaussian distributions. I decided to investigate this issue by performing statistical analysis of daily log-returns for a time series of stock returns for 10 large U.S. companies. I compared fitting a normal distribution and fitting a two-component Gaussian mixture model to the data, with probability density defined as:\n\\[f(x) = p \\cdot \\mathcal{N}(0, \\sigma^2) + (1-p) \\cdot \\mathcal{N}(0, \\beta^2)\\] .\nI chose this model because of its interesting interpretation: it is a two-state market model, where the market is in a “normal” state with volatility \\(\\sigma\\) with probability \\(p\\), and in a “volatile” state with volatility \\(\\beta\\) with probability \\(1-\\p\\)."
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#results-of-mle-distribution-fitting",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#results-of-mle-distribution-fitting",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "Results of MLE distribution fitting",
+    "text": "Results of MLE distribution fitting\n\n  \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n  \n\n  \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n        \n      \n    \n        \n      \n    \n  \n\n  \n    \n    Previous\n  \n\n  \n    \n    Next"
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#data",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#data",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "Data",
+    "text": "Data\n\nDaily prices for 10 large U.S. technology companies\nSample period: 2015–2025\nData source: Yahoo Finance (downloaded using the yfinance Python package)"
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#methods",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#methods",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "Methods",
+    "text": "Methods\n\nExamined the empirical distribution with plots and method of moments estimation.\nImplemented Maximum Likelihood Estimation (MLE) method in R.\nUsed MLE to estimate parameters for a normal model and a two-component normal mixture model.\nCompared the fit results and performed likelihood ratio tests to evaluate the improvement in fit from the normal model to the mixture model."
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#results",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#results",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "Results",
+    "text": "Results\nThe normal distribution provided a poor fit to the empirical return distribution.\nThe Gaussian mixture model captured the distribution substantially better, especially in the tails and in periods of elevated volatility. GMM estimation for the mixture model was numerically unstable because the relevant moment matrices became singular, so final inference for that specification relied on MLE."
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#key-takeaways",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#key-takeaways",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nEmpirical stock returns were not well described by a single normal distribution.\nA two-component Gaussian mixture improved the fit substantially.\nThe project highlights both statistical modeling and practical numerical issues in estimation."
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#materials",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#materials",
+    "title": "Modeling Stock Returns with Gaussian Mixtures",
+    "section": "Materials",
+    "text": "Materials\n\nAcademic report, incl. code (PDF)"
+  },
+  {
     "objectID": "projects/leverage_effect.html",
     "href": "projects/leverage_effect.html",
     "title": "Leverage Effect: WSE vs NYSE",
@@ -74,20 +130,48 @@
     "href": "index.html",
     "title": "Actuarial Projects Portfolio",
     "section": "",
-    "text": "I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based analyses, including simulation, statistical methods, and financial modelling.\n\n\n\n\nComparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data.\n\n\n\n\n\n\n\nTo build this personal website I used Quarto and hosting on GitHub Pages."
+    "text": "I am building a portfolio of projects related to actuarial science, quantitative methods, and computational modelling. The repository combines academic work with coding-based analyses, including simulation, statistical methods, and financial modelling."
   },
   {
     "objectID": "index.html#selected-projects",
     "href": "index.html#selected-projects",
     "title": "Actuarial Projects Portfolio",
-    "section": "",
-    "text": "Comparative analysis of volatility asymmetry in the Polish and U.S. equity markets, motivated by academic literature and supported by empirical market data."
+    "section": "Selected Projects",
+    "text": "Selected Projects\n\nLeverage Effect: WSE vs NYSE"
+  },
+  {
+    "objectID": "index.html#what-this-portfolio-contains",
+    "href": "index.html#what-this-portfolio-contains",
+    "title": "Actuarial Projects Portfolio",
+    "section": "What this portfolio contains",
+    "text": "What this portfolio contains"
   },
   {
     "objectID": "index.html#section",
     "href": "index.html#section",
     "title": "Actuarial Projects Portfolio",
     "section": "",
-    "text": "To build this personal website I used Quarto and hosting on GitHub Pages."
+    "text": "To build this personal website I used Quarto and GitHub Pages."
+  },
+  {
+    "objectID": "projects/financial_mathematics.html",
+    "href": "projects/financial_mathematics.html",
+    "title": "Financial mathematics projects",
+    "section": "",
+    "text": "Below are projects related to the financial side of actuarial modelling."
+  },
+  {
+    "objectID": "projects/financial_mathematics.html#leverage-effect-wse-vs-nyse",
+    "href": "projects/financial_mathematics.html#leverage-effect-wse-vs-nyse",
+    "title": "Financial mathematics projects",
+    "section": "Leverage Effect: WSE vs NYSE",
+    "text": "Leverage Effect: WSE vs NYSE"
+  },
+  {
+    "objectID": "projects/financial_mathematics.html#mle",
+    "href": "projects/financial_mathematics.html#mle",
+    "title": "Financial mathematics projects",
+    "section": "MLE",
+    "text": "MLE\nHow past negative returns impact future volatility? Quantitative analysis of stock price correlations."
   }
 ]

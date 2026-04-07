@@ -6,6 +6,7 @@ Below are projects related to the financial side of actuarial modelling.
 
 
 ## [Leverage Effect: WSE vs NYSE](leverage_effect.qmd)
+## [MLE](financial_mathematics/normal_vs_mixture/normal_vs_mixture.qmd)
 
 How past negative returns impact future volatility? Quantitative analysis of stock price correlations. 
 

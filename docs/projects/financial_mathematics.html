@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Leverage Effect: WSE vs NYSE – Actuarial Projects Portfolio</title>
+<title>Financial mathematics projects – Actuarial Projects Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -71,35 +71,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -126,7 +97,7 @@ window.Quarto = {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../projects/financial_mathematics.html"> 
+    <a class="nav-link active" href="../projects/financial_mathematics.html" aria-current="page"> 
 <span class="menu-text">Financial Mathematics</span></a>
   </li>  
 </ul>
@@ -151,18 +122,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#motivation-and-source" id="toc-motivation-and-source" class="nav-link" data-scroll-target="#motivation-and-source">Motivation and source</a></li>
-  <li><a href="#tools" id="toc-tools" class="nav-link" data-scroll-target="#tools">Tools</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a>
-  <ul class="collapse">
-  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">Preprocessing</a></li>
-  </ul></li>
-  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
-  <li><a href="#conference-poster" id="toc-conference-poster" class="nav-link" data-scroll-target="#conference-poster">Conference poster</a></li>
-  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
-  <li><a href="#back" id="toc-back" class="nav-link" data-scroll-target="#back">Back</a></li>
+  <li><a href="#leverage-effect-wse-vs-nyse" id="toc-leverage-effect-wse-vs-nyse" class="nav-link active" data-scroll-target="#leverage-effect-wse-vs-nyse">Leverage Effect: WSE vs NYSE</a></li>
+  <li><a href="#mle" id="toc-mle" class="nav-link" data-scroll-target="#mle">MLE</a></li>
   </ul>
 </nav>
     </div>
@@ -171,7 +132,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Leverage Effect: WSE vs NYSE</h1>
+<h1 class="title">Financial mathematics projects</h1>
 </div>
 
 
@@ -188,96 +149,13 @@ window.Quarto = {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This project investigates the correlation between returns and volatility in equity markets. It compares the <strong>leverage effect (the increase in volatility that follows a negative return period)</strong> on the Warsaw Stock Exchange (WSE) and the New York Stock Exchange (NYSE). The analysis is based on daily data for a sample period of 10 years, from 2016 to 2026.</p>
+<p>Below are projects related to the financial side of actuarial modelling.</p>
+<section id="leverage-effect-wse-vs-nyse" class="level2">
+<h2 class="anchored" data-anchor-id="leverage-effect-wse-vs-nyse"><a href="../projects/leverage_effect.html">Leverage Effect: WSE vs NYSE</a></h2>
 </section>
-<section id="motivation-and-source" class="level2">
-<h2 class="anchored" data-anchor-id="motivation-and-source">Motivation and source</h2>
-<p>The analysis is inspired by an academic article on quantitative analysis of the leverage effects in financial markets.</p>
-<ul>
-<li><strong>Reference article:</strong> Reigneron, P.-A., Allez, R., &amp; Bouchaud, J.-P. (2011). <em>Principal regression analysis and the index leverage effect</em>.</li>
-<li><strong>Project goal:</strong> replicate the original analysis for S&amp;P 500 index components, adapt the methodology to Polish WIG30 index components, compare the nature of stock price correlations between the two markets.</li>
-</ul>
-</section>
-<section id="tools" class="level2">
-<h2 class="anchored" data-anchor-id="tools">Tools</h2>
-<ul>
-<li>Python (libraries: pandas, numpy, matplotlib, seaborn, yfinance)</li>
-<li>Jupyter Notebook for data analysis and visualization</li>
-</ul>
-</section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
-<ul>
-<li><strong>Stock price data:</strong> Yahoo Finance (via Python library yfinance)</li>
-<li><strong>Frequency:</strong> daily</li>
-<li><strong>Number of companies:</strong> 30 (for WIG30) and 500 (for S&amp;P 500)</li>
-<li><strong>Sample period:</strong> April 2016 to April 2026 (update of the original period used for 2025 conference)</li>
-</ul>
-<section id="preprocessing" class="level3">
-<h3 class="anchored" data-anchor-id="preprocessing">Preprocessing</h3>
-<ul>
-<li>select the close prices and merge data for all stocks in each index</li>
-<li>manage missing observations date-wise and company-wise, eliminate entries with too many missing values</li>
-<li>calculate log returns</li>
-<li>normalize the returns</li>
-</ul>
-</section>
-</section>
-<section id="methodology" class="level2">
-<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>Define:</p>
-<ul>
-<li><span class="math inline">\(r_{\alpha}(t)\)</span> : return of stock <span class="math inline">\(\alpha\)</span> at time <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(r^2_{\alpha}(t)\)</span> : volatility of stock <span class="math inline">\(\alpha\)</span> at time <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(I(t) = \frac{1}{N} \sum_{\alpha} r_{\alpha}(t)\)</span> : average return at time <span class="math inline">\(t\)</span> (,,synthetic index return’’)</li>
-<li><span class="math inline">\(I^2(t)\)</span>: proxy for index volatility at time <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(\sigma^2(t) = \frac{1}{N} \sum_{\alpha} r^2_{\alpha}(t)\)</span> : average stock volatility at time <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(\rho(t) = \frac{1}{N(N-1)} \sum_{\alpha \neq \beta} r_{\alpha}(t) r_{\beta}(t)\)</span> : average correlation of stock returns at time <span class="math inline">\(t\)</span></li>
-</ul>
-<p>The authors state three facts about the index volatility:</p>
-<ul>
-<li><p>general market fluctuations are driven by both volatility of individual stocks and by their correlations: <span class="math display">\[I^2(t) \approx \rho(t) \sigma^2(t)\]</span></p></li>
-<li><p>the collective measures, <span class="math inline">\(I^2(t)\)</span>, <span class="math inline">\(\sigma^2(t)\)</span> and <span class="math inline">\(\rho(t)\)</span>, depend on past returns via a linear relationship:</p>
-<p><span class="math display">\[I^2(t) = I^2_0 +  a(\tau) \cdot I(t-\tau)\]</span> <span class="math display">\[\sigma^2(t) = \sigma^2_0 +  b(\tau) \cdot I(t-\tau)\]</span> <span class="math display">\[\rho(t) = \rho_0 +  c(\tau) \cdot I(t-\tau)\]</span></p></li>
-<li><p>the total influence of <span class="math inline">\(I(t-\tau)\)</span> on <span class="math inline">\(I^2(t)\)</span> is the sum of influences on <span class="math inline">\(\sigma^2(t)\)</span> and <span class="math inline">\(\rho(t)\)</span>, which can be expressed as:</p></li>
-</ul>
-<p><span class="math display">\[a(\tau) \approx b(\tau) \cdot \rho_0 + c(\tau) \cdot \sigma^2_0\]</span></p>
-<p>To quantify these observations, the authors propose find the coefficients by standard linear regression for different time lags <span class="math inline">\(\tau\)</span>.</p>
-</section>
-<section id="results" class="level2">
-<h2 class="anchored" data-anchor-id="results">Results</h2>
-<p>The plots below show <span class="math inline">\(a(\tau)\)</span>, <span class="math inline">\(b(\tau) \cdot \rho_0\)</span>, and <span class="math inline">\(c(\tau)\cdot \sigma^2_0\)</span> values for time lags from 1 to 150 days. The influences from the left plot constitute the total influence in the right plot, as the authors suggest.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="financial_mathematics/leverage_effect/plots_sp500.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="financial_mathematics/leverage_effect/plots_wig30.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700"></p>
-</figure>
-</div>
-<p>In both markets, we clearly observe the leverage effect: if index returns decline, volatility measures and correlations between stocks increase, via the negative linear coefficients. We also observe that this effect decays over time, and after a period of several weeks it becomes random noise.</p>
-<p>We note 2 key differences between Polish and American markets:</p>
-<ol type="1">
-<li>The force of the negative correlation is stronger in the U.S. market than in the Polish market. This is most likely due to the fact that WSE is a smaller and less liquid market than NYSE, and therefore the collective behavior of stocks is less predictable and heavily influenced by idiosyncratic factors.</li>
-<li>For similar reasons, the decay of the leverage effect is faster in the Polish market than in the American market. In the WSE, the effect becomes negligible after about 20 trading days, while in the NYSE it remains significant for up to 40 trading days. This suggests that shocks to the market have a more persistent impact on volatility and correlations in the U.S. market than in the Polish market.</li>
-</ol>
-<p>This analysis shows, in a quantitative way, the unpredictability of Polish stock market compared to the American one. This is an important insight for investors and risk managers, as it implies that patterns observed in the model U.S market may not be directly applicable to smaller and more specific markets.</p>
-</section>
-<section id="conference-poster" class="level2">
-<h2 class="anchored" data-anchor-id="conference-poster">Conference poster</h2>
-<p>Below is the project poster presented at the 8th Warsaw School of Statistical Physics in 2025. It contains an extended analysis, including principal regression analysis. <a href="financial_mathematics/leverage_effect/poster.pdf">Project poster (PDF)</a></p>
-</section>
-<section id="code" class="level2">
-<h2 class="anchored" data-anchor-id="code">Code</h2>
-<p><a href="https://github.com/ma-latala/actuarial_projects/tree/main/projects/financial_mathematics/leverage_effect">View the code on GitHub</a></p>
-</section>
-<section id="back" class="level2">
-<h2 class="anchored" data-anchor-id="back">Back</h2>
-<p><a href="index.html">Return to homepage</a></p>
+<section id="mle" class="level2">
+<h2 class="anchored" data-anchor-id="mle"><a href="../projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html">MLE</a></h2>
+<p>How past negative returns impact future volatility? Quantitative analysis of stock price correlations.</p>
 
 
 </section>

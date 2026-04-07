@@ -29,3 +29,32 @@ img {
 p, li {
   text-align: justify;
 }
+
+#projectCarousel {
+  max-width: 1000px;
+  margin: 2rem auto;
+  position: relative;
+  padding: 0 60px;
+}
+
+#projectCarousel .carousel-item {
+  text-align: center;
+}
+
+#projectCarousel .carousel-item img {
+  width: 90%;
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  z-index: 10;
+  width: 50px;
+}
