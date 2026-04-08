@@ -30,7 +30,7 @@ p, li {
   text-align: justify;
 }
 
-#projectCarousel {
+#projectCarousel,#projectCarousel2 {
   max-width: 1000px;
   margin: 2rem auto;
   position: relative;
@@ -41,7 +41,7 @@ p, li {
   text-align: center;
 }
 
-#projectCarousel .carousel-item img {
+#projectCarousel,#projectCarousel2 .carousel-item img {
   width: 90%;
   max-width: 100%;
   height: auto;
