@@ -4,14 +4,14 @@
     "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html",
     "title": "Modeling Stock Returns with Maximum Likelihood Estimation",
     "section": "",
-    "text": "It is a very common practice in quantitative finance to assume that stock returns are normally distributed. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period.\nI tested three candidate distributions:\n\nThe typical two-parameter normal distribution:\n\n\\[\n\\mathcal{N}(\\mu, \\sigma^2), \\quad\nf(x) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right).\n\\]\n\nTwo component gaussian mixture:\n\n\\[\nf(x) = p \\cdot \\mathcal{N}(0, \\sigma^2) + (1-p) \\cdot \\mathcal{N}(0, \\beta^2),\n\\]\nwhich is a two-state market model, i.e. the stock prices have higher or lower volatility with probabilities p and 1-p, respectively.\n\nGeneralized gaussian distribution:\n\n\\[\nf(x) = \\frac{\\alpha}{2 \\beta \\, \\Gamma(1/\\alpha)}\n\\exp\\left(-\\left|\\frac{x-\\mu}{\\beta}\\right|^{\\alpha}\\right),\n\\]\nwhich is a three-parameter extension of the normal distribution."
+    "text": "It is a fairly common practice in quantitative finance to assume that stock returns are normally distributed, for example in the Markowitz model. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period.\nI tested three candidate distributions:\n\nThe typical two-parameter normal distribution:\n\n\\[\n\\mathcal{N}(\\mu, \\sigma^2), \\quad\nf(x) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right).\n\\]\n\nTwo component Gaussian mixture:\n\n\\[\nf(x) = p \\cdot \\mathcal{N}(0, \\sigma^2) + (1-p) \\cdot \\mathcal{N}(0, \\beta^2),\n\\]\nwhich is a two-state market model, i.e. the stock prices have higher or lower volatility with probabilities p and 1-p, respectively.\n\nGeneralized Gaussian distribution (GGD):\n\n\\[\nf(x) = \\frac{\\alpha}{2 \\beta \\, \\Gamma(1/\\alpha)}\n\\exp\\left(-\\left|\\frac{x-\\mu}{\\beta}\\right|^{\\alpha}\\right),\n\\]\nwhich is a three-parameter extension of the normal distribution."
   },
   {
     "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#motivation",
     "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#motivation",
     "title": "Modeling Stock Returns with Maximum Likelihood Estimation",
     "section": "",
-    "text": "It is a very common practice in quantitative finance to assume that stock returns are normally distributed. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period.\nI tested three candidate distributions:\n\nThe typical two-parameter normal distribution:\n\n\\[\n\\mathcal{N}(\\mu, \\sigma^2), \\quad\nf(x) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right).\n\\]\n\nTwo component gaussian mixture:\n\n\\[\nf(x) = p \\cdot \\mathcal{N}(0, \\sigma^2) + (1-p) \\cdot \\mathcal{N}(0, \\beta^2),\n\\]\nwhich is a two-state market model, i.e. the stock prices have higher or lower volatility with probabilities p and 1-p, respectively.\n\nGeneralized gaussian distribution:\n\n\\[\nf(x) = \\frac{\\alpha}{2 \\beta \\, \\Gamma(1/\\alpha)}\n\\exp\\left(-\\left|\\frac{x-\\mu}{\\beta}\\right|^{\\alpha}\\right),\n\\]\nwhich is a three-parameter extension of the normal distribution."
+    "text": "It is a fairly common practice in quantitative finance to assume that stock returns are normally distributed, for example in the Markowitz model. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period.\nI tested three candidate distributions:\n\nThe typical two-parameter normal distribution:\n\n\\[\n\\mathcal{N}(\\mu, \\sigma^2), \\quad\nf(x) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\right).\n\\]\n\nTwo component Gaussian mixture:\n\n\\[\nf(x) = p \\cdot \\mathcal{N}(0, \\sigma^2) + (1-p) \\cdot \\mathcal{N}(0, \\beta^2),\n\\]\nwhich is a two-state market model, i.e. the stock prices have higher or lower volatility with probabilities p and 1-p, respectively.\n\nGeneralized Gaussian distribution (GGD):\n\n\\[\nf(x) = \\frac{\\alpha}{2 \\beta \\, \\Gamma(1/\\alpha)}\n\\exp\\left(-\\left|\\frac{x-\\mu}{\\beta}\\right|^{\\alpha}\\right),\n\\]\nwhich is a three-parameter extension of the normal distribution."
   },
   {
     "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#data",
@@ -25,28 +25,35 @@
     "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#methods",
     "title": "Modeling Stock Returns with Maximum Likelihood Estimation",
     "section": "Methods",
-    "text": "Methods\n\nEvaluation of the empirical distribution with plots and moment estimation.\nImplementation of Maximum Likelihood Estimation (MLE) method in R.\nEstimation of parameters of Models 1, 2, and 3.\nLikelihood ratio (LR) statistical tests to asses whether:\n\nthe mean parameters differ significantly from 0 in Models 1 and 3\nthe mixed Gaussian model an improvement compared to the normal model\nthe generalized Gaussian model an improvement compared to the normal model"
+    "text": "Methods\n\nEvaluation of the empirical distribution with plots and moment estimation.\nImplementation of Maximum Likelihood Estimation (MLE) method in R.\nEstimation of parameters for Model 1, 2, and 3.\nLikelihood ratio (LR) statistical tests to assess:\n\nif the mean parameter differs significantly from 0 in Model 1 and 3\nif the mixed Gaussian model is an improvement compared to the normal model\nif the generalized Gaussian model is an improvement compared to the normal model"
   },
   {
     "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#maximum-likelihood-estimation-results",
     "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#maximum-likelihood-estimation-results",
     "title": "Modeling Stock Returns with Maximum Likelihood Estimation",
     "section": "Maximum Likelihood Estimation results",
-    "text": "Maximum Likelihood Estimation results\nBelow you can click through fit results for the 10 chosen companies.\n\n  \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n  \n\n  \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n        \n      \n    \n        \n      \n    \n  \n\n  \n    \n    Previous\n  \n\n  \n    \n    Next\n  \n\nTo visually asses the fit performance in the tail sections of the distribution, refer to these plots:\n\n  \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n  \n\n  \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n        \n      \n    \n        \n      \n    \n  \n\n  \n    \n    Previous\n  \n\n  \n    \n    Next"
+    "text": "Maximum Likelihood Estimation results\nBelow you can review the probability density fits for the 10 chosen companies.\n\n  \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n  \n\n  \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n        \n      \n    \n        \n      \n    \n  \n\n  \n    \n    Previous\n  \n\n  \n    \n    Next\n  \n\nTo further verify the fit performance, especially in the tails of the distributions, we can look at the P-P plots shown below. They visualize the alignment of the empirical and fitted CDF values. The closer the points are to the diagonal line, the better the fit.\n\n  \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n  \n\n  \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n    \n      \n    \n        \n      \n    \n        \n      \n    \n  \n\n  \n    \n    Previous\n  \n\n  \n    \n    Next"
   },
   {
     "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#conclusion",
     "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#conclusion",
     "title": "Modeling Stock Returns with Maximum Likelihood Estimation",
     "section": "Conclusion",
-    "text": "Conclusion\n\nThe normal distribution provided a poor fit to the empirical return distribution. Is is especially visible in the tails, where it showed significant underestimation.\nThe Gaussian mixture model captured the distribution’s tails substantially better. Its problem was underestimation in the central section around 0.\nThe generalized Gaussian model, due to its flexibility, modelled the empirical distribution almost very well in all cases.\n\nThe latter does not mean that GGD is immediately the best choice. With an increase in number of parameters, there is always a risk of overfitting to the sample, reducing the universality of results. In this case however, estimated GGD parameters were approximately the same for different companies, which suggest that this model is generalizable.\nResults of the statistical tests: - for all 10 companies the means were not significantly different from 0. - Models 2 and 3 provided statistically significant improvements to Model 1."
+    "text": "Conclusion\n\nThe normal distribution provides a poor fit to the empirical return distribution. Is is especially visible in the tails, where it significantly underestimates the distribution (see the P-P plots).\nThe Gaussian mixture model captured the distribution’s tails substantially better. Its problem is underestimation of probability in the central section around 0.\nThe GGD modelled the empirical distribution very well in all cases. It also provided accurate alignment in the tails, which suggests that log-returns, while having heavier tails than the normal distribution, belong to the subexponential family.\n\nA question arises whether the good fit of the GGD is due to its flexibility and higher number of parameters, or if it is a genuinely better model. Three arguments can be made:\n\nFor all companies, two of the parameter estimates are similar (\\(\\beta \\approx 1.0\\), \\(\\alpha \\approx 0.015\\)), which suggests that the GGD is not overfitting to the sample, but rather captures a general property of stock returns.\nThe likelihood ratio tests strongly suggest that both the mixture and generalized Gaussian models provide statistically significant improvements compared to the normal distribution.\nThe GGD model provides a more detailed specification of the data: in this model, the hypothesis of mean log-return being 0 is rejected for 8 out of 10 companies, while in the normal model it is rejected for 5 companies (or less, for \\(\\alpha &lt;0.05\\)). This suggests that the GGD captures the distribution more accurately, including the mean parameter, which is important for many applications."
   },
   {
     "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#key-takeaways",
     "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#key-takeaways",
     "title": "Modeling Stock Returns with Maximum Likelihood Estimation",
     "section": "Key Takeaways",
-    "text": "Key Takeaways\n\nNormality of log-returns is not always a true assumption.\nModel selection depends on sample size and modelling objective:\n\nModel 2 (mixture): preferable for small samples; captures tail behaviour while presenting an intuitive interpretation of parameters.\nModel 3 (generalized): preferable for large samples if an accurate fit across the entire distribution is of interest. Overfitting risk must be considered."
+    "text": "Key Takeaways\n\nFor the selected companies, the normal distribution is not a good choice for modeling log-returns, as it fails to capture the empirical distribution, especially in the tails.\nThe Gaussian mixture model improves the fit in the tails, but the most accurate model is the generalized Gaussian distribution, with \\(\\beta \\approx 1.0\\) and \\(\\alpha \\approx 0.015\\) and \\(\\mu\\) of order 0.001."
+  },
+  {
+    "objectID": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#p-values-of-the-likelihood-ratio-tests",
+    "href": "projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.html#p-values-of-the-likelihood-ratio-tests",
+    "title": "Modeling Stock Returns with Maximum Likelihood Estimation",
+    "section": "P-values of the Likelihood Ratio Tests",
+    "text": "P-values of the Likelihood Ratio Tests\n\\(H_0\\): \\(\\mu = 0\\) in Model 1 (normal distribution)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAAPL\nAMD\nAMZN\nCRM\nGOOGL\nINTC\nMETA\nMSFT\nNVDA\nTSLA\n\n\n\n\n0.0108\n0.0152\n0.0541\n0.4093\n0.0222\n0.5821\n0.1863\n0.0160\n0.0007\n0.1072\n\n\n\n\\(H_0\\): \\(\\mu = 0\\) in Model 3 (generalized Gaussian distribution)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAAPL\nAMD\nAMZN\nCRM\nGOOGL\nINTC\nMETA\nMSFT\nNVDA\nTSLA\n\n\n\n\n0.0002\n0.1127\n0.0003\n0.0076\n0.0000\n0.0991\n0.0131\n0.0001\n0.0000\n0.0471\n\n\n\n\\(H_0\\): Model 2 (mixture) does not improve fit compared to Model 1 (normal) (implemented as \\(\\beta = \\sigma\\) restriction):\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAAPL\nAMD\nAMZN\nCRM\nGOOGL\nINTC\nMETA\nMSFT\nNVDA\nTSLA\n\n\n\n\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n\n\n\n\\(H_0\\): Model 3 (generalized) does not improve fit compared to Model 1 (normal) (implemented as \\(\\beta = 2\\) restriction):\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAAPL\nAMD\nAMZN\nCRM\nGOOGL\nINTC\nMETA\nMSFT\nNVDA\nTSLA\n\n\n\n\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000\n0.0000"
   },
   {
     "objectID": "projects/leverage_effect.html",
@@ -147,24 +154,10 @@
     "text": "To build this personal website I used Quarto and GitHub Pages."
   },
   {
-    "objectID": "projects/financial_mathematics.html",
-    "href": "projects/financial_mathematics.html",
-    "title": "Financial mathematics projects",
-    "section": "",
-    "text": "Below are projects related to the financial side of actuarial modelling."
-  },
-  {
-    "objectID": "projects/financial_mathematics.html#leverage-effect-wse-vs-nyse",
-    "href": "projects/financial_mathematics.html#leverage-effect-wse-vs-nyse",
-    "title": "Financial mathematics projects",
-    "section": "Leverage Effect: WSE vs NYSE",
-    "text": "Leverage Effect: WSE vs NYSE"
-  },
-  {
-    "objectID": "projects/financial_mathematics.html#mle",
-    "href": "projects/financial_mathematics.html#mle",
-    "title": "Financial mathematics projects",
-    "section": "MLE",
-    "text": "MLE\nHow past negative returns impact future volatility? Quantitative analysis of stock price correlations."
+    "objectID": "projects/financial_mathematics.html#modeling-stock-returns-with-maximum-likelihood-estimation",
+    "href": "projects/financial_mathematics.html#modeling-stock-returns-with-maximum-likelihood-estimation",
+    "title": "Financial Mathematics Projects",
+    "section": "Modeling Stock Returns with Maximum Likelihood Estimation",
+    "text": "Modeling Stock Returns with Maximum Likelihood Estimation"
   }
 ]

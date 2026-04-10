@@ -157,6 +157,7 @@ window.Quarto = {
   <li><a href="#maximum-likelihood-estimation-results" id="toc-maximum-likelihood-estimation-results" class="nav-link" data-scroll-target="#maximum-likelihood-estimation-results">Maximum Likelihood Estimation results</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#key-takeaways" id="toc-key-takeaways" class="nav-link" data-scroll-target="#key-takeaways">Key Takeaways</a></li>
+  <li><a href="#p-values-of-the-likelihood-ratio-tests" id="toc-p-values-of-the-likelihood-ratio-tests" class="nav-link" data-scroll-target="#p-values-of-the-likelihood-ratio-tests">P-values of the Likelihood Ratio Tests</a></li>
   </ul>
 </nav>
     </div>
@@ -184,7 +185,7 @@ window.Quarto = {
 
 <section id="motivation" class="level2">
 <h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
-<p>It is a very common practice in quantitative finance to assume that stock returns are normally distributed. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period.</p>
+<p>It is a fairly common practice in quantitative finance to assume that stock returns are normally distributed, for example in the Markowitz model. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period.</p>
 <p>I tested three candidate distributions:</p>
 <ol type="1">
 <li>The typical two-parameter normal distribution:</li>
@@ -194,14 +195,14 @@ window.Quarto = {
 f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
 \]</span></p>
 <ol start="2" type="1">
-<li>Two component gaussian mixture:</li>
+<li>Two component Gaussian mixture:</li>
 </ol>
 <p><span class="math display">\[
 f(x) = p \cdot \mathcal{N}(0, \sigma^2) + (1-p) \cdot \mathcal{N}(0, \beta^2),
 \]</span></p>
 <p>which is a two-state market model, i.e.&nbsp;the stock prices have higher or lower volatility with probabilities p and 1-p, respectively.</p>
 <ol start="3" type="1">
-<li>Generalized gaussian distribution:</li>
+<li>Generalized Gaussian distribution (GGD):</li>
 </ol>
 <p><span class="math display">\[
 f(x) = \frac{\alpha}{2 \beta \, \Gamma(1/\alpha)}
@@ -223,18 +224,18 @@ f(x) = \frac{\alpha}{2 \beta \, \Gamma(1/\alpha)}
 <ul>
 <li><p>Evaluation of the empirical distribution with plots and moment estimation.</p></li>
 <li><p>Implementation of <strong>Maximum Likelihood Estimation (MLE)</strong> method in <strong>R</strong>.</p></li>
-<li><p>Estimation of parameters of Models 1, 2, and 3.</p></li>
-<li><p><strong>Likelihood ratio (LR)</strong> statistical tests to asses whether:</p>
+<li><p>Estimation of parameters for Model 1, 2, and 3.</p></li>
+<li><p><strong>Likelihood ratio (LR)</strong> statistical tests to assess:</p>
 <ul>
-<li>the mean parameters differ significantly from 0 in Models 1 and 3</li>
-<li>the mixed Gaussian model an improvement compared to the normal model</li>
-<li>the generalized Gaussian model an improvement compared to the normal model</li>
+<li>if the mean parameter differs significantly from 0 in Model 1 and 3</li>
+<li>if the mixed Gaussian model is an improvement compared to the normal model</li>
+<li>if the generalized Gaussian model is an improvement compared to the normal model</li>
 </ul></li>
 </ul>
 </section>
 <section id="maximum-likelihood-estimation-results" class="level2">
 <h2 class="anchored" data-anchor-id="maximum-likelihood-estimation-results">Maximum Likelihood Estimation results</h2>
-<p>Below you can click through fit results for the 10 chosen companies.</p>
+<p>Below you can review the probability density fits for the 10 chosen companies.</p>
 <div id="projectCarousel" class="carousel slide" data-bs-ride="false">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -292,7 +293,7 @@ f(x) = \frac{\alpha}{2 \beta \, \Gamma(1/\alpha)}
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-<p>To visually asses the fit performance in the tail sections of the distribution, refer to these plots:</p>
+<p>To further verify the fit performance, especially in the tails of the distributions, we can look at the P-P plots shown below. They visualize the alignment of the empirical and fitted CDF values. The closer the points are to the diagonal line, the better the fit.</p>
 <div id="projectCarousel2" class="carousel slide" data-bs-ride="false">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#projectCarousel2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -354,23 +355,198 @@ f(x) = \frac{\alpha}{2 \beta \, \Gamma(1/\alpha)}
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <ul>
-<li><p>The normal distribution provided a poor fit to the empirical return distribution. Is is especially visible in the tails, where it showed significant underestimation.</p></li>
-<li><p>The Gaussian mixture model captured the distribution’s tails substantially better. Its problem was underestimation in the central section around 0.</p></li>
-<li><p>The generalized Gaussian model, due to its flexibility, modelled the empirical distribution almost very well in all cases.</p></li>
+<li><p>The normal distribution provides a poor fit to the empirical return distribution. Is is especially visible in the tails, where it significantly underestimates the distribution (see the P-P plots).</p></li>
+<li><p>The Gaussian mixture model captured the distribution’s tails substantially better. Its problem is underestimation of probability in the central section around 0.</p></li>
+<li><p>The GGD modelled the empirical distribution very well in all cases. It also provided accurate alignment in the tails, which suggests that log-returns, while having heavier tails than the normal distribution, belong to the subexponential family.</p></li>
 </ul>
-<p>The latter does not mean that GGD is immediately the best choice. With an increase in number of parameters, there is always a risk of overfitting to the sample, reducing the universality of results. In this case however, estimated GGD parameters were approximately the same for different companies, which suggest that this model is generalizable.</p>
-<p>Results of the statistical tests: - for all 10 companies the means were not significantly different from 0. - Models 2 and 3 provided statistically significant improvements to Model 1.</p>
+<p>A question arises whether the good fit of the GGD is due to its flexibility and higher number of parameters, or if it is a genuinely better model. Three arguments can be made:</p>
+<ol type="1">
+<li><p>For all companies, two of the parameter estimates are similar (<span class="math inline">\(\beta \approx 1.0\)</span>, <span class="math inline">\(\alpha \approx 0.015\)</span>), which suggests that the GGD is not overfitting to the sample, but rather captures a general property of stock returns.</p></li>
+<li><p>The likelihood ratio tests strongly suggest that both the mixture and generalized Gaussian models provide statistically significant improvements compared to the normal distribution.</p></li>
+<li><p>The GGD model provides a more detailed specification of the data: in this model, the hypothesis of mean log-return being 0 is rejected for 8 out of 10 companies, while in the normal model it is rejected for 5 companies (or less, for <span class="math inline">\(\alpha &lt;0.05\)</span>). This suggests that the GGD captures the distribution more accurately, including the mean parameter, which is important for many applications.</p></li>
+</ol>
 </section>
 <section id="key-takeaways" class="level2">
 <h2 class="anchored" data-anchor-id="key-takeaways">Key Takeaways</h2>
 <ul>
-<li>Normality of log-returns is not always a true assumption.</li>
-<li>Model selection depends on sample size and modelling objective:
-<ul>
-<li>Model 2 (mixture): preferable for small samples; captures tail behaviour while presenting an intuitive interpretation of parameters.</li>
-<li>Model 3 (generalized): preferable for large samples if an accurate fit across the entire distribution is of interest. Overfitting risk must be considered.</li>
-</ul></li>
+<li><p>For the selected companies, the normal distribution is not a good choice for modeling log-returns, as it fails to capture the empirical distribution, especially in the tails.</p></li>
+<li><p>The Gaussian mixture model improves the fit in the tails, but the most accurate model is the generalized Gaussian distribution, with <span class="math inline">\(\beta \approx 1.0\)</span> and <span class="math inline">\(\alpha \approx 0.015\)</span> and <span class="math inline">\(\mu\)</span> of order 0.001.</p></li>
 </ul>
+</section>
+<section id="p-values-of-the-likelihood-ratio-tests" class="level2">
+<h2 class="anchored" data-anchor-id="p-values-of-the-likelihood-ratio-tests">P-values of the Likelihood Ratio Tests</h2>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = 0\)</span> in Model 1 (normal distribution)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">AAPL</th>
+<th style="text-align: center;">AMD</th>
+<th style="text-align: center;">AMZN</th>
+<th style="text-align: center;">CRM</th>
+<th style="text-align: center;">GOOGL</th>
+<th style="text-align: center;">INTC</th>
+<th style="text-align: center;">META</th>
+<th style="text-align: center;">MSFT</th>
+<th style="text-align: center;">NVDA</th>
+<th style="text-align: center;">TSLA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.0108</td>
+<td style="text-align: center;">0.0152</td>
+<td style="text-align: center;">0.0541</td>
+<td style="text-align: center;">0.4093</td>
+<td style="text-align: center;">0.0222</td>
+<td style="text-align: center;">0.5821</td>
+<td style="text-align: center;">0.1863</td>
+<td style="text-align: center;">0.0160</td>
+<td style="text-align: center;">0.0007</td>
+<td style="text-align: center;">0.1072</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu = 0\)</span> in Model 3 (generalized Gaussian distribution)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">AAPL</th>
+<th style="text-align: center;">AMD</th>
+<th style="text-align: center;">AMZN</th>
+<th style="text-align: center;">CRM</th>
+<th style="text-align: center;">GOOGL</th>
+<th style="text-align: center;">INTC</th>
+<th style="text-align: center;">META</th>
+<th style="text-align: center;">MSFT</th>
+<th style="text-align: center;">NVDA</th>
+<th style="text-align: center;">TSLA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.0002</td>
+<td style="text-align: center;">0.1127</td>
+<td style="text-align: center;">0.0003</td>
+<td style="text-align: center;">0.0076</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0991</td>
+<td style="text-align: center;">0.0131</td>
+<td style="text-align: center;">0.0001</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0471</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(H_0\)</span>: Model 2 (mixture) does not improve fit compared to Model 1 (normal) (implemented as <span class="math inline">\(\beta = \sigma\)</span> restriction):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">AAPL</th>
+<th style="text-align: center;">AMD</th>
+<th style="text-align: center;">AMZN</th>
+<th style="text-align: center;">CRM</th>
+<th style="text-align: center;">GOOGL</th>
+<th style="text-align: center;">INTC</th>
+<th style="text-align: center;">META</th>
+<th style="text-align: center;">MSFT</th>
+<th style="text-align: center;">NVDA</th>
+<th style="text-align: center;">TSLA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(H_0\)</span>: Model 3 (generalized) does not improve fit compared to Model 1 (normal) (implemented as <span class="math inline">\(\beta = 2\)</span> restriction):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">AAPL</th>
+<th style="text-align: center;">AMD</th>
+<th style="text-align: center;">AMZN</th>
+<th style="text-align: center;">CRM</th>
+<th style="text-align: center;">GOOGL</th>
+<th style="text-align: center;">INTC</th>
+<th style="text-align: center;">META</th>
+<th style="text-align: center;">MSFT</th>
+<th style="text-align: center;">NVDA</th>
+<th style="text-align: center;">TSLA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+<td style="text-align: center;">0.0000</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

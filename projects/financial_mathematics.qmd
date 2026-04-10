@@ -1,12 +1,9 @@
 ---
-title: "Financial mathematics projects"
+title: "Financial Mathematics Projects"
 ---
 
-Below are projects related to the financial side of actuarial modelling. 
+## [How past negative returns impact future volatility? Leverage Effect: WSE vs NYSE](leverage_effect.qmd)
 
+## [Modeling Stock Returns with Maximum Likelihood Estimation](financial_mathematics/normal_vs_mixture/normal_vs_mixture.qmd)
 
-## [Leverage Effect: WSE vs NYSE](leverage_effect.qmd)
-## [MLE](financial_mathematics/normal_vs_mixture/normal_vs_mixture.qmd)
-
-How past negative returns impact future volatility? Quantitative analysis of stock price correlations. 
 

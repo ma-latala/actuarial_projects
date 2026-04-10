@@ -5,7 +5,7 @@ title: "Modeling Stock Returns with Maximum Likelihood Estimation"
 
 ## Motivation
 
-It is a very common practice in quantitative finance to assume that stock returns are normally distributed. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period. 
+It is a fairly common practice in quantitative finance to assume that stock returns are normally distributed, for example in the Markowitz model. However, it is usually hard to get a good Gaussian fit for the empirical return distribution. I decided to investigate this issue by performing statistical analysis of daily log-returns for 10 large U.S. companies over a 10-year period. 
 
 I tested three candidate distributions:
 
@@ -16,7 +16,7 @@ $$
 f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
 $$
 
-2. Two component gaussian mixture:
+2. Two component Gaussian mixture:
 
 $$
 f(x) = p \cdot \mathcal{N}(0, \sigma^2) + (1-p) \cdot \mathcal{N}(0, \beta^2),
@@ -24,7 +24,7 @@ $$
 
 which is a two-state market model, i.e. the stock prices have higher or lower volatility with probabilities p and 1-p, respectively.
 
-3. Generalized gaussian distribution:
+3. Generalized Gaussian distribution (GGD):
 
 $$
 f(x) = \frac{\alpha}{2 \beta \, \Gamma(1/\alpha)} 
@@ -47,16 +47,16 @@ which is a three-parameter extension of the normal distribution.
 
 - Implementation of **Maximum Likelihood Estimation (MLE)** method in **R**. 
 
-- Estimation of parameters of Models 1, 2, and 3.
+- Estimation of parameters for Model 1, 2, and 3.
 
-- **Likelihood ratio (LR)** statistical tests to asses whether:
-    - the mean parameters differ significantly from 0 in Models 1 and 3 
-    - the mixed Gaussian model an improvement compared to the normal model
-    - the generalized Gaussian model an improvement compared to the normal model
+- **Likelihood ratio (LR)** statistical tests to assess:
+    - if the mean parameter differs significantly from 0 in Model 1 and 3 
+    - if the mixed Gaussian model is an improvement compared to the normal model
+    - if the generalized Gaussian model is an improvement compared to the normal model
 
 ## Maximum Likelihood Estimation results
 
-Below you can click through fit results for the 10 chosen companies.
+Below you can review the probability density fits for the 10 chosen companies.
 
 ```{=html}
 <div id="projectCarousel" class="carousel slide" data-bs-ride="false">
@@ -118,7 +118,7 @@ Below you can click through fit results for the 10 chosen companies.
 </div>
 ```
 
-To visually asses the fit performance in the tail sections of the distribution, refer to these plots:
+To further verify the fit performance, especially in the tails of the distributions, we can look at the P-P plots shown below. They visualize the alignment of the empirical and fitted CDF values. The closer the points are to the diagonal line, the better the fit.
 
 ```{=html}
 <div id="projectCarousel2" class="carousel slide" data-bs-ride="false">
@@ -183,23 +183,58 @@ To visually asses the fit performance in the tail sections of the distribution, 
 
 ## Conclusion
 
-- The normal distribution provided a poor fit to the empirical return distribution. Is is especially visible in the tails, where it showed significant underestimation. 
+- The normal distribution provides a poor fit to the empirical return distribution. Is is especially visible in the tails, where it significantly underestimates the distribution (see the P-P plots). 
 
-- The Gaussian mixture model captured the distribution's tails substantially better. Its problem was underestimation in the central section around 0.
+- The Gaussian mixture model captured the distribution's tails substantially better. Its problem is underestimation of probability in the central section around 0.
 
-- The generalized Gaussian model, due to its flexibility, modelled the empirical distribution almost very well in all cases. 
+- The GGD modelled the empirical distribution very well in all cases. It also provided accurate alignment in the tails, which suggests that log-returns, while having heavier tails than the normal distribution, belong to the subexponential family. 
 
-The latter does not mean that GGD is immediately the best choice. With an increase in number of parameters, there is always a risk of overfitting to the sample, reducing the universality of results. In this case however, estimated GGD parameters were approximately the same for different companies, which suggest that this model is generalizable. 
+A question arises whether the good fit of the GGD is due to its flexibility and higher number of parameters, or if it is a genuinely better model. Three arguments can be made:
 
-Results of the statistical tests:
-- for all 10 companies the means were not significantly different from 0. 
-- Models 2 and 3 provided statistically significant improvements to Model 1. 
+1. For all companies, two of the parameter estimates are similar ($\beta \approx 1.0$, $\alpha \approx 0.015$), which suggests that the GGD is not overfitting to the sample, but rather captures a general property of stock returns.
+
+2. The likelihood ratio tests strongly suggest that both the mixture and generalized Gaussian models provide statistically significant improvements compared to the normal distribution.
+
+3. The GGD model provides a more detailed specification of the data: in this model, the hypothesis of mean log-return being 0 is rejected for 8 out of 10 companies, while in the normal model it is rejected for 5 companies (or less, for $\alpha <0.05$). This suggests that the GGD captures the distribution more accurately, including the mean parameter, which is important for many applications.
 
 ## Key Takeaways
 
-- Normality of log-returns is not always a true assumption.
-- Model selection depends on sample size and modelling objective:
-    - Model 2 (mixture): preferable for small samples; captures tail behaviour while presenting an intuitive interpretation of parameters.
-    - Model 3 (generalized): preferable for large samples if an accurate fit across the entire distribution is of interest. Overfitting risk must be considered. 
+- For the selected companies, the normal distribution is not a good choice for modeling log-returns, as it fails to capture the empirical distribution, especially in the tails.
+
+- The Gaussian mixture model improves the fit in the tails, but the most accurate model is the generalized Gaussian distribution, with $\beta \approx 1.0$ and $\alpha \approx 0.015$ and $\mu$ of order 0.001.
 
 
+## P-values of the Likelihood Ratio Tests
+
+
+
+$H_0$: $\mu = 0$ in Model 1 (normal distribution)
+ 
+
+| AAPL | AMD | AMZN | CRM | GOOGL | INTC | META | MSFT | NVDA | TSLA |
+|:----:|:---:|:----:|:---:|:-----:|:----:|:----:|:----:|:----:|:----:|
+| 0.0108 | 0.0152 | 0.0541 | 0.4093 | 0.0222 | 0.5821 | 0.1863 | 0.0160 | 0.0007 | 0.1072 |
+
+
+$H_0$: $\mu = 0$ in Model 3 (generalized Gaussian distribution)
+
+
+| AAPL | AMD | AMZN | CRM | GOOGL | INTC | META | MSFT | NVDA | TSLA |
+|:----:|:---:|:----:|:---:|:-----:|:----:|:----:|:----:|:----:|:----:|
+| 0.0002 | 0.1127 | 0.0003 | 0.0076 | 0.0000 | 0.0991 | 0.0131 | 0.0001 | 0.0000 | 0.0471 |
+
+
+ $H_0$: Model 2 (mixture) does not improve fit compared to Model 1 (normal) (implemented as  $\beta = \sigma$ restriction):
+
+
+| AAPL | AMD | AMZN | CRM | GOOGL | INTC | META | MSFT | NVDA | TSLA |
+|:----:|:---:|:----:|:---:|:-----:|:----:|:----:|:----:|:----:|:----:|
+| 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+
+
+$H_0$: Model 3 (generalized) does not improve fit compared to Model 1 (normal) (implemented as $\beta = 2$ restriction):
+
+
+| AAPL | AMD | AMZN | CRM | GOOGL | INTC | META | MSFT | NVDA | TSLA |
+|:----:|:---:|:----:|:---:|:-----:|:----:|:----:|:----:|:----:|:----:|
+| 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |

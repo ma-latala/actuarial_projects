@@ -48,3 +48,5 @@
 venv
 
 /projects/financial_mathematics/leverage_effect/__pycache__/
+
+.Rhistory

@@ -67,7 +67,8 @@ results_normal = data.frame(
   mu = numeric(),
   sigma = numeric(),
   SE_mu = numeric(),
-  SE_sigma = numeric()
+  SE_sigma = numeric(),
+  max_loglik = numeric()
 )
 
 
@@ -117,18 +118,62 @@ for(s in 1:n_stocks){
   
   results_normal[s, ] = list(
     wynik$estimate[1], wynik$estimate[2],
-    SE_vector[1], SE_vector[2]
+    SE_vector[1], SE_vector[2], wynik$maximum
   )
   
-  # test mu = 0
-  
-  mu_0 = 0
-  Z = (wynik$estimate[1]-mu_0)/SE_vector[1]
-  p_value = 2 * pnorm(-abs(Z))
-  mu_0_p_values[s] = p_value
 }
 
+#test mu=0
 
+for(s in 1:n_stocks){
+  x = log_returns[,s]
+  
+  loglik = function(params){
+    sigma = params[1]
+    mu = 0
+    n = length(x)
+    return(-n/2*log(2*pi)-n*log(sigma)-1/2/sigma/sigma*sum((x-mu)^2))
+  }
+  grad = function(params){
+    mu = 0
+    sigma = params[1]
+    n = length(x)
+    
+    d_mu = sum(x - mu) / sigma^2
+    d_sigma = -n / sigma + sum((x - mu)^2) / sigma^3
+    
+    c(d_sigma)
+  }
+  hess = function(params){
+    mu = 0
+    sigma = params[1]
+    n = length(x)
+    
+    h22 = n / sigma^2 - 3 * sum((x - mu)^2) / sigma^4
+    
+    matrix(c(h22))
+  }
+
+  
+  wynik_restricted = maxNR(
+    loglik,
+    grad = grad,
+    hess=hess,
+    start  = c(sd(x))
+  )
+  
+  
+  lnL_unrestricted = as.numeric(results_normal[s,5])
+  lnL_restricted = wynik_restricted$maximum
+  LR = 2*(lnL_unrestricted - lnL_restricted)
+  g = 1
+  alpha=0.05
+  qchisq(1-alpha, g)
+  p_value = 1-pchisq(LR, g)
+  
+  mu_0_p_values[s] = p_value
+  
+}
 
 ### MLE dla mieszanki rozkładów normalnych
 ###########################################
@@ -280,7 +325,8 @@ results_generalized = data.frame(
   SE_beta = numeric()
 )
 
-generalized_beta_2_p_values = rep(0, n_stocks)
+gnorm_mu_0_p_values = rep(0, n_stocks)
+gnorm_beta_2_p_values = rep(0, n_stocks)
 
 g_beta <- function(beta, x, mu) {
   if (beta <= 0) return(NA_real_)
@@ -288,7 +334,10 @@ g_beta <- function(beta, x, mu) {
   y <- abs(x - mu)
   
   # problematic when any y == 0 because log(0) appears
-  if (any(y == 0)) return(NA_real_)
+  if (any(y == 0)) {
+    y[y==0] = 1e-18
+  }
+  
   
   S0 <- sum(y^beta)
   S1 <- sum((y^beta) * log(y))
@@ -306,7 +355,9 @@ gprime_beta <- function(beta, x, mu) {
   y <- abs(x - mu)
   
   # problematic when any y == 0 because log(0) appears
-  if (any(y == 0)) return(NA_real_)
+  if (any(y == 0)) {
+    y[y==0] = 1e-18
+  }
   
   S0 <- sum(y^beta)
   L1 <- sum((y^beta) * log(y))
@@ -378,11 +429,36 @@ for(s in 1:n_stocks){
     qchisq(1-alpha, g)
     p_value = 1-pchisq(LR, g)
     
-    generalized_beta_2_p_values[s] = p_value
+    gnorm_beta_2_p_values[s] = p_value
+    
+    
+    # test mu = 0
+    
+    loglik_unrestricted = sum(log(dgnorm(x, res)))
+
+    mu = 0
+    beta = mean(x) / sd(x)
+
+    pdiff = 100
+
+    while(pdiff>0.0001){
+      new_beta = beta - g_beta(beta, x, mu)/gprime_beta(beta, x, mu)
+      pdiff = abs(beta-new_beta)/beta
+      beta = new_beta
+    }
+
+    alpha = (beta/length(x)*sum((abs(x-mu))^beta))^(1/beta)
+
+    loglik_restricted = sum(log(dgnorm(x, c(mu, alpha, beta))))
+
+    LR = 2*(loglik_unrestricted - loglik_restricted)
+    g = 1
+    alpha=0.05
+    qchisq(1-alpha, g)
+    p_value = 1-pchisq(LR, g)
+
+    gnorm_mu_0_p_values[s] = p_value
 }
-
-
-
 
 
 
@@ -467,148 +543,128 @@ pdf_generalized <- function(x, pars) {
   dgnorm(x, pars)
 }
 
-## -------------------------------------------------
-## colors
-## -------------------------------------------------
+###################################################
+### PP and QQ plots
+###################################################
+
 
 if (n_stocks <= 12) {
   colors <- RColorBrewer::brewer.pal(n_stocks, "Set3")
 } else {
   colors <- colorRampPalette(RColorBrewer::brewer.pal(12, "Set3"))(n_stocks)
 }
-colors[2] = "#F0F086"
-
-## -------------------------------------------------
-## plotting loop: one figure per stock
-## -------------------------------------------------
+colors[2] <- "#F0F086"
 
 old_par <- par(no.readonly = TRUE)
 on.exit(par(old_par))
 
 for (s in 1:n_stocks) {
-  svg(file=paste("plots/tail_plot", s, ".svg", sep=""),
-      width=8, height=3.5,pointsize = 12)
+  svg(
+    file = paste("plots/tail_plot", s, ".svg", sep = ""),
+    width = 11, height = 4, pointsize = 14
+  )
   
   r <- log_returns[, s]
   r <- r[is.finite(r)]
+  r <- sort(r)
+  n <- length(r)
   
-  ecdf_func <- ecdf(r)
+  # plotting probabilities
+  p <- ppoints(n)
   
-  # grids
-  x_left  <- seq(-0.20, 0.00, by = 0.001)
-  x_mid   <- seq(-0.025, 0.03, by = 0.001)
-  x_right <- seq( 0.00, 0.20, by = 0.001)
+  ## -----------------------------
+  ## fitted CDF values for PP plot
+  ## -----------------------------
+  p_norm  <- cdf_normal(r,  results_normal[s, ])
+  p_mix   <- cdf_mixture(r, results_mixture[s, 1:3])
+  p_gnorm <- cdf_generalized(r, results_generalized[s, ])
   
-  # empirical objects
-  emp_left  <- ecdf_func(x_left)
-  emp_mid  <- ecdf_func(x_mid)
-  emp_right <- 1 - ecdf_func(x_right)
   
-  # fitted CDFs
-  norm_left  <- cdf_normal(x_left,  results_normal[s, ])
-  mix_left   <- cdf_mixture(x_left, results_mixture[s, 1:3])
-  gnorm_left <- cdf_generalized(x_left, results_generalized[s, ])
+  par(mfrow = c(1, 3), mar = c(5, 5, 3.5, 1), oma = c(0, 0, 2, 0))
   
-  norm_right  <- 1 - cdf_normal(x_right,  results_normal[s, ])
-  mix_right   <- 1 - cdf_mixture(x_right, results_mixture[s, 1:3])
-  gnorm_right <- 1 - cdf_generalized(x_right, results_generalized[s, ])
-  
-  # fitted PDFs
-  norm_mid  <- cdf_normal(x_mid,  results_normal[s, ])
-  mix_mid   <- cdf_mixture(x_mid, results_mixture[s, 1:3])
-  gnorm_mid <- cdf_generalized(x_mid, results_generalized[s, ])
-  
-  ymax_mid <- max(
-    hist(r, breaks = "Scott", plot = FALSE)$density,
-    norm_mid, mix_mid, gnorm_mid,
-    na.rm = TRUE
-  )
-  
-  par(mfrow = c(1, 3), mar = c(5, 5, 4, 1), oma = c(0, 0, 2, 0))
-  
-  ## ---------------------------------------------
-  ## 1) LEFT PANEL: left tail
-  ## ---------------------------------------------
+  ## =========================================
+  ## 1) PP plot
+  ## =========================================
   plot(
-    NA, NA,
-    xlim = range(x_left),
-    ylim = c(1e-6, 1),
-    log  = "y",
-    xlab = "Log return",
-    ylab = expression(hat(F)(x)),
-    main = "Left tail"
+    p, p_norm,
+    pch = 21, cex = 1.5,
+    col = colors[s],
+    xlab = "Empirical probabilities",
+    ylab = "Fitted probabilities",
+    xlim = c(0, 1), ylim = c(0, 1),
+    main = 'Normal'
   )
   
   grid(col = "grey85", lty = "dotted")
-  
-  # empirical in stock color
-  lines(x_left,  pmax(emp_left,  1e-12), col = colors[s], lwd = 2.2)
-  
-  # fitted in black with your line styles
-  lines(x_left, pmax(norm_left,  1e-12), col = "black", lwd = 2, lty = 1)
-  lines(x_left, pmax(mix_left,   1e-12), col = "black", lwd = 2, lty = 2)
-  lines(x_left, pmax(gnorm_left, 1e-12), col = "black", lwd = 2, lty = 3)
+  abline(0, 1, col = "black", lwd = 2, lty = 1)
+  # lines(sort(p), p_norm[order(p)],  col = "black", lwd = 2, lty = 1)
   
   legend(
     "topleft",
-    legend = c("Empirical", "Normal", "Gaussian mixture", "Generalized normal"),
-    col    = c(colors[s], "black", "black", "black"),
-    lwd    = 2,
-    lty    = c(1, 1, 2, 3),
+    legend = c("Data", "45° line"),
+    col    = c(colors[s], "black"),
+    pch    = c(16, NA),     # point for data, none for line
+    lty    = c(NA, 1),      # no line for data, solid for 45°
+    lwd    = c(NA, 2),
     bty    = "n"
   )
   
-  ## ---------------------------------------------
-  ## 2) MIDDLE PANEL: PDF around 0
-  ## ---------------------------------------------
   plot(
-    NA, NA,
-    xlim = range(x_mid),
-    ylim = c(1e-1, 1),
-    log  = "y",
-    xlab = "Log return",
-    ylab = expression(hat(F)(x)),
-    main = "Around 0"
+    p, p_mix,
+    pch = 21, cex = 1.5,
+    col = colors[s],
+    xlab = "Empirical probabilities",
+    ylab = "Fitted probabilities",
+    xlim = c(0, 1), ylim = c(0, 1),
+    main = "Normal Mixture"
   )
   
   grid(col = "grey85", lty = "dotted")
+  abline(0, 1, col = "black", lwd = 2, lty = 1)
+  # lines(sort(p), p_mix[order(p)],   col = "black", lwd = 2, lty = 2)
   
-  # empirical in stock color
-  lines(x_mid,  pmax(emp_mid,  1e-12), col = colors[s], lwd = 2.2)
+  legend(
+    "topleft",
+    legend = c("Data", "45° line"),
+    col    = c(colors[s], "black"),
+    pch    = c(16, NA),     # point for data, none for line
+    lty    = c(NA, 1),      # no line for data, solid for 45°
+    lwd    = c(NA, 2),
+    bty    = "n"
+  )
   
-  # fitted in black with your line styles
-  lines(x_mid, pmax(norm_mid,  1e-12), col = "black", lwd = 2, lty = 1)
-  lines(x_mid, pmax(mix_mid,   1e-12), col = "black", lwd = 2, lty = 2)
-  lines(x_mid, pmax(gnorm_mid, 1e-12), col = "black", lwd = 2, lty = 3)
-  
-  ## ---------------------------------------------
-  ## 3) RIGHT PANEL: right tail
-  ## ---------------------------------------------
   plot(
-    NA, NA,
-    xlim = range(x_right),
-    ylim = c(1e-6, 1),
-    log  = "y",
-    xlab = "Log return",
-    ylab = expression(1 - hat(F)(x)),
-    main = "Right tail"
+    p, p_gnorm,
+    pch = 21, cex = 1.5,
+    col = colors[s],
+    xlab = "Empirical probabilities",
+    ylab = "Fitted probabilities",
+    xlim = c(0, 1), ylim = c(0, 1),
+    main="Generalized Normal"
   )
   
   grid(col = "grey85", lty = "dotted")
+  abline(0, 1, col = "black", lwd = 2, lty = 1)
+  # lines(sort(p), p_gnorm[order(p)], col = "black", lwd = 2, lty = 3)
   
-  # empirical in stock color
-  lines(x_right, pmax(emp_right,  1e-12), col = colors[s], lwd = 2.2)
+
   
-  # fitted in black
-  lines(x_right, pmax(norm_right,  1e-12), col = "black", lwd = 2, lty = 1)
-  lines(x_right, pmax(mix_right,   1e-12), col = "black", lwd = 2, lty = 2)
-  lines(x_right, pmax(gnorm_right, 1e-12), col = "black", lwd = 2, lty = 3)
+  legend(
+    "topleft",
+    legend = c("Data", "45° line"),
+    col    = c(colors[s], "black"),
+    pch    = c(21, NA),     # point for data, none for line
+    lty    = c(NA, 1),      # no line for data, solid for 45°
+    lwd    = c(NA, 2),
+    bty    = "n"
+  )
   
   mtext(
-    paste("Ticker:", colnames(log_returns)[s]),
+    paste("PP Plots,", "Ticker:", colnames(log_returns)[s]),
     outer = TRUE,
-    cex = 1.2
+    cex = 1.4
   )
+  
   dev.off()
 }
 
