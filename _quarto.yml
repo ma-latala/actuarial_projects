@@ -16,6 +16,7 @@ website:
       - href: projects/financial_mathematics.qmd
         text: Financial Mathematics
     right:
+      - text: "Magdalena Latała"
       - text: "LinkedIn"
         href: https://www.linkedin.com/in/ma-latala
   search: true

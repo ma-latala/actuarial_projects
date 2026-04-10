@@ -137,21 +137,14 @@
     "href": "index.html#selected-projects",
     "title": "Actuarial Projects Portfolio",
     "section": "Selected Projects",
-    "text": "Selected Projects\n\nLeverage Effect: WSE vs NYSE"
-  },
-  {
-    "objectID": "index.html#what-this-portfolio-contains",
-    "href": "index.html#what-this-portfolio-contains",
-    "title": "Actuarial Projects Portfolio",
-    "section": "What this portfolio contains",
-    "text": "What this portfolio contains"
+    "text": "Selected Projects\n\nHow past negative returns impact future volatility? Leverage Effect: WSE vs NYSE\n\n\nModeling Stock Returns with Maximum Likelihood Estimation"
   },
   {
     "objectID": "index.html#section",
     "href": "index.html#section",
     "title": "Actuarial Projects Portfolio",
     "section": "",
-    "text": "To build this personal website I used Quarto and GitHub Pages."
+    "text": "To build this website I used Quarto and GitHub Pages."
   },
   {
     "objectID": "projects/financial_mathematics.html#modeling-stock-returns-with-maximum-likelihood-estimation",

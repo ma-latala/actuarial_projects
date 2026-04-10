@@ -6,12 +6,9 @@ I am building a portfolio of projects related to actuarial science, quantitative
 
 ## Selected Projects
 
-### [Leverage Effect: WSE vs NYSE](leverage-effect.html)
+### [How past negative returns impact future volatility? Leverage Effect: WSE vs NYSE](projects/leverage_effect.qmd)
 
-
-## What this portfolio contains
-
-
+### [Modeling Stock Returns with Maximum Likelihood Estimation](projects/financial_mathematics/normal_vs_mixture/normal_vs_mixture.qmd)
 
 ## 
-To build this personal website I used Quarto and GitHub Pages.
+To build this website I used Quarto and GitHub Pages.
